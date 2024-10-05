@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutInvoiceManagerComponent } from './layout-invoice-manager/layout-invoice-manager.component';
 import { PorfolioPageComponent } from './pages/porfolio-page/porfolio-page.component';
 import { CustomerPageComponent } from './pages/customer-page/customer-page.component';
+import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-details.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,11 @@ const routes: Routes = [
     children:[
       {
         path:'portfolio',
-        component:PorfolioPageComponent
+        component:PorfolioPageComponent,
+      },
+      {
+        path:'portfolio/:id',
+        component:PortfolioDetailsComponent,
       },
       {
         path:'customer',

@@ -16,13 +16,15 @@ import {ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
+import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-details.component';
 
 @NgModule({
   declarations: [
     LayoutInvoiceManagerComponent,
     PorfolioPageComponent,
     CustomerPageComponent,
-    ClientDialogComponent
+    ClientDialogComponent,
+    PortfolioDetailsComponent
   ],
   imports: [
     CommonModule,

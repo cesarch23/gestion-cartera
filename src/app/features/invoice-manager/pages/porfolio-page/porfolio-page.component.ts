@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 export interface Portfolio {
   id:number;
   nombre: string;
@@ -52,7 +53,14 @@ export class PorfolioPageComponent implements AfterViewInit{
   @ViewChild(MatPaginator)
   paginator?: MatPaginator;
 
+  constructor(private router:Router){}
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator? this.paginator: null;
+  }
+
+
+  showDetails(id:number){
+    this.router.navigate(['app/portfolio',id])
   }
 }
