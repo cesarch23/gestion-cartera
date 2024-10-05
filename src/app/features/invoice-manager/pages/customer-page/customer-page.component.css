@@ -1,9 +1,23 @@
 
+.porfolio{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.porfolio__client-button{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 24px;
+    background-color: #fff;
+    
+}
 .porfolio__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 24px;
+    background-color: #fff;
 }
 .portfolio___header-title{
     font-size: 16px;
