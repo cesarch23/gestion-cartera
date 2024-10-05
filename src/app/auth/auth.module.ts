@@ -9,13 +9,15 @@ import {ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import { LayoutAuthComponent } from './layout-auth/layout-auth.component';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LayoutAuthComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,41 @@
-<p>register works!</p>
+<div class="content">
+    <div class="login">
+        <div class="login__title">
+            <h1>Registrarse</h1>
+            <span>Por favor ingrese sus datos</span>
+        </div>
+        <form action="#" class="form">
+            <mat-form-field class="form__field" appearance="fill" color="primary">
+                <mat-label>RUC de la empresa</mat-label>
+                <input matInput type="text" placeholder="Ingrese el RUC de su empresa">
+            </mat-form-field>
+            <mat-form-field class="form__field" appearance="fill" >
+                <mat-label>Razon social</mat-label>
+                <input matInput type="password" placeholder="Ingrese la razon social">
+            </mat-form-field>
+            <mat-form-field class="form__field" appearance="fill" >
+                <mat-label>Direccion de la sede principal</mat-label>
+                <input matInput type="password" placeholder="Ingrese la direccion legal">
+            </mat-form-field>
+            <mat-form-field class="form__field" appearance="fill" >
+                <mat-label>Sector</mat-label>
+                <input matInput type="password" placeholder="Ingrese el sector al que pertenece">
+            </mat-form-field>
+            <mat-form-field class="form__field" appearance="fill" >
+                <mat-label>Constraseña</mat-label>
+                <input matInput type="password" placeholder="Ingrese su contraseña">
+            </mat-form-field>
+            <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" >Log in</button>
+            <div class="form__or">
+                <hr> <span> O </span> <hr>
+            </div>
+        </form>
+        <div class="login__options">
+            <p>¿Tienes una cuenta?</p> <a href="/auth/register/login">Login</a>
+        </div> 
+    </div>
+    <div class="image">
+        <img src="/assets/images/login.png" alt="login image">
+    </div>
+ 
+</div>
