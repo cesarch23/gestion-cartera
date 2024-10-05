@@ -17,6 +17,9 @@
     padding:10px 8px;
     
 }
+.portfolio___header-button:hover{
+    background-color: var(--primary-color-hovered);
+}
 .portfolio__table table{
     padding: 0 24px 24px 24px;
 }
