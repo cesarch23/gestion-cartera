@@ -17,6 +17,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-details.component';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-d
     MatInputModule,
     MatFormFieldModule,
     MatTabsModule,
-    
+    MatSortModule,
 
   ]
 })
