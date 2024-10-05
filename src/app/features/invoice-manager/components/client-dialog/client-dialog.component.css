@@ -1,0 +1,54 @@
+.dialog{
+    padding: 32px 64px;
+    /* box-shadow: 0px 0px 13px 0px #6D93FE;
+    border-radius: 16px; */
+}
+.dialog__header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+.dialog__content{
+    & .dialog__tap-group{
+      padding-top: 16px; 
+      
+      & .customerForm, .businessForm{
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+
+        & .customerForm__actions, .businessForm__actions{
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+
+            & .customerForm__reset, .businessForm__reset {
+                background-color: #ECF1FF;
+                font-weight: 500;
+                color: var(--primary-color);
+                font-size: 16px;
+                padding: 16px 32px;
+             
+                flex-grow: 1;
+            }
+            
+            & .customerForm__submit, .businessForm__submit{
+                background-color: var(--primary-color);
+                color: #fff;
+                font-weight: 500;
+                font-size: 16px;
+                padding: 16px 32px;
+      
+                flex-grow: 1;
+            }
+            & .customerForm__submit:hover, .businessForm__submit:hover{
+                background-color: var(--primary-color-hovered);
+            }
+        }
+      } 
+
+
+    }
+
+}

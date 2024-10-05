@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ClientDialogComponent } from '../../components/client-dialog/client-dialog.component';
 export interface Client {
   nombre: string;
   apellidos: string;
@@ -36,14 +38,23 @@ const ELEMENT_DATA: Client[] = [
   styleUrls: ['./customer-page.component.css']
 })
 export class CustomerPageComponent implements AfterViewInit {
+
   displayedColumns: string[] = ['nombre', 'apellidos', 'dni', 'direccion'];
   dataSource = new MatTableDataSource<Client>(ELEMENT_DATA);
+
+
+  constructor(private dialog:MatDialog ){}
 
   @ViewChild(MatPaginator)
   paginator?: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator? this.paginator: null;
+  }
+  addClient(){
+    this.dialog.open(ClientDialogComponent,{
+      maxWidth:527
+    })
   }
 
 }

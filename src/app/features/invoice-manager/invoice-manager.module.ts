@@ -10,12 +10,19 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ClientDialogComponent } from './components/client-dialog/client-dialog.component';
+import {ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
     LayoutInvoiceManagerComponent,
     PorfolioPageComponent,
-    CustomerPageComponent
+    CustomerPageComponent,
+    ClientDialogComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +32,14 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatTabsModule,
+    
+
   ]
 })
 export class InvoiceManagerModule { }
