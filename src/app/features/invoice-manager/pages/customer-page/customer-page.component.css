@@ -1,0 +1,27 @@
+.porfolio{
+
+}
+.porfolio__header{
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+}
+.portfolio___header-title{
+    font-size: 24px;
+    font-weight: 500;
+}
+.portfolio___header-button{
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    padding:10px 16px;
+    
+}
+.portfolio__table table{
+    padding: 0 24px 24px 24px;
+}
+.sticky{
+    position: sticky;
+    top: 0;
+}

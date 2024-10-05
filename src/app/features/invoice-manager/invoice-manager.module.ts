@@ -6,7 +6,10 @@ import { LayoutInvoiceManagerComponent } from './layout-invoice-manager/layout-i
 import { PorfolioPageComponent } from './pages/porfolio-page/porfolio-page.component';
 import { CustomerPageComponent } from './pages/customer-page/customer-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     InvoiceManagerRoutingModule,
-    SharedModule
+    SharedModule,
+
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class InvoiceManagerModule { }
