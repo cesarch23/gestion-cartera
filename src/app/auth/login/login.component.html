@@ -13,13 +13,13 @@
                 <mat-label>Contraseña</mat-label>
                 <input matInput type="password" placeholder="Ingrese su contraseña">
             </mat-form-field>
-            <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" >Log in</button>
+            <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" (click)="submit()" routerLink="/app" >Log in</button>
             <div class="form__or">
                 <hr> <span> O </span> <hr>
             </div>
         </form>
         <div class="login__options">
-            <p>¿No tienes una cuenta?</p> <a href="/auth/register">Regístrate</a>
+            <p>¿No tienes una cuenta?</p> <a routerLink="/auth/register">Regístrate</a>
         </div> 
     </div>
     <div class="image">
