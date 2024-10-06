@@ -26,3 +26,16 @@ body {
 
 }
 
+::-webkit-scrollbar-track {
+    /* background-color: hsl(0, 0%, 99%);  */
+    background-color: ECF1FF; 
+    border-radius: 24px;
+}
+::-webkit-scrollbar {
+    height: 8px; 
+    width: 8px;
+  }
+::-webkit-scrollbar-thumb{
+    border-radius: 24px;
+    background-color: hsl(0, 0%, 88%)
+}
