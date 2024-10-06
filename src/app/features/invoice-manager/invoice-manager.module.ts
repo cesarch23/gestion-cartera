@@ -18,6 +18,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-details.component';
 import {MatSortModule} from '@angular/material/sort';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,9 @@ import {MatSortModule} from '@angular/material/sort';
     MatFormFieldModule,
     MatTabsModule,
     MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSortModule
 
   ]
 })

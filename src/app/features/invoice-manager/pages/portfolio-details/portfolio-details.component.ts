@@ -1,5 +1,7 @@
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 export interface Client {
   nombre: string;
@@ -194,17 +196,21 @@ const portfoDta: PortfolioDetails[] = [
 })
 export class PortfolioDetailsComponent implements AfterViewInit {
 
-  detailsColumns = ['id','editar','cliente','estado','tipo','moneda','nominal','descuento','recibido'
-                    ,'tcea','tipoTasa','emision','fechaDescuento','vencimiento','banco']
+  detailsColumns = ['id','editar','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido'
+                    ,'tcea','tipoTasa','fechaEmision','fechaDescuento','fechaVencimiento','banco']
 
   portfolioDetails = new MatTableDataSource <PortfolioDetails>(portfoDta);
 
   constructor(){}
 
   @ViewChild('paginator') paginator?:MatPaginator
+  @ViewChild(MatSort) sort?:MatSort 
 
   ngAfterViewInit(): void {
     this.portfolioDetails.paginator = this.paginator ? this.paginator : null;
+    this.portfolioDetails.sort= this.sort ? this.sort : null;
   }
+
+ 
 
 }
