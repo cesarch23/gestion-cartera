@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+  
 name: Deploy Angular App
 
 # Ejecutar este workflow cuando se haga push a la rama 'main'
@@ -36,4 +39,5 @@ jobs:
         with:
           branch: gh-pages # Rama donde se hará el deploy
           folder: dist/gestion-cartera # Carpeta donde se genera el build
+          token: ${{ secrets.GITHUB_TOKEN }}
 
