@@ -22,9 +22,6 @@
     flex-grow: 1;
     gap: 32px;
   }
-  .login__title{
-
-  }
   .form{
     display: flex;
     flex-direction: column;
