@@ -12,6 +12,6 @@ export class LoginComponent {
     private router:Router
   ){}
   submit(){
-    this.router.navigateByUrl('/app/portfolio/')
+    this.router.navigateByUrl('/app/portfolio')
   }
 }
