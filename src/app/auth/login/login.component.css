@@ -5,19 +5,19 @@
     margin: 0 auto;
    
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    gap: 2rem;
     align-items: center;
-    justify-content: center;
+    gap: 2rem;
     height: 100%;
-    
   }
   .login{
+    
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 100%;
     max-width: 464px;
     display: flex;
     flex-direction: column;
-    
     padding: 0 64px;
     flex-grow: 1;
     gap: 32px;
@@ -69,7 +69,20 @@
 }
 
 @media (width>=728px){
+    .content {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 0;
+    }
+    .login{
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
     .image{
+        position: absolute;
+        right: 0;
+        z-index: -100;
+        width: 55%;
         display: block;
         overflow: hidden;
         max-width: 800.375px;

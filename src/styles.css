@@ -19,7 +19,7 @@ html, body {
 body { 
     margin: 0; 
     font-family: Roboto,  "Helvetica Neue", sans-serif;
-
+    position: relative;
     width: 100vw;
     
     background-color: #ECF1FF;
