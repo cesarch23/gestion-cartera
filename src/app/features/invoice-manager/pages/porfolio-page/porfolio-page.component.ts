@@ -16,21 +16,19 @@ import { PortfolioDialogComponent } from '../../components/portfolio-dialog/port
 })
 export class PorfolioPageComponent implements AfterViewInit, OnInit{
   displayedColumns: string[] = ['nombre', 'banco', 'estado', 'acciones'];
-  dataSource!:MatTableDataSource<Portfolio>;
-  @ViewChild(MatPaginator)
-  paginator?: MatPaginator;
-  arrayPortfolio!:Portfolio[];
+  dataSource = new MatTableDataSource<Portfolio>([]);
+
   constructor(
     private router:Router,
     private invoiceServ:InvoiceService,
     private dialog:MatDialog
     
   ){ }
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.invoiceServ.portfolios.subscribe(values => {
-      this.dataSource = new MatTableDataSource<Portfolio>(values);
+      this.dataSource.data=values;
     });
     
   }

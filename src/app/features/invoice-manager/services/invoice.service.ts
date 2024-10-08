@@ -46,7 +46,7 @@ export class InvoiceService {
     const estado = 'pendiente';
     const id=arrPortfolio.length+1;
     const portfolio:Portfolio = {id,nombre,moneda,estado, banco,tipoTasa,periodo, fechaDescuento}
-    arrPortfolio.push(portfolio);
+    arrPortfolio.unshift(portfolio);
     this.portfoliosList.next(arrPortfolio);
 
   }
