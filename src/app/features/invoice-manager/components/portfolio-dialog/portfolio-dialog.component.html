@@ -1,0 +1,57 @@
+<div class="dialog">
+    <div class="dialog__header">
+        <h2>Crear Portfolio</h2>
+        <p>Seleccion si es persona natural o empresa y complete los datos</p>
+    </div>
+    <div class="dialog__content">
+        <form action="#" class="portfolioForm" [formGroup]="portfolioForm" (ngSubmit)="addPortfolio()" >
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label>Nombre de la cartera</mat-label>
+                <input id="nombre" formControlName="nombre" matInput class="portfolioForm__input" type="text" placeholder="Ingrese el nombre de la cartera">
+            </mat-form-field>
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label>Moneda</mat-label>
+                <mat-select id="moneda" formControlName="moneda">
+                    <mat-option value="PEN">Soles(PEN)</mat-option>
+                    <mat-option value="USD">Dolares(USD)</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label >Fecha de descuento</mat-label>
+                <input id="fechaDescuento"  formControlName="fechaDescuento" matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label >Tipo de tasa</mat-label>
+                <mat-select id="tipoTasa" formControlName = "tipoTasa">
+                    <mat-option value="Nominal">Nominal</mat-option>
+                    <mat-option value="Efectiva">Efectiva</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label>Periodo</mat-label>
+                <mat-select id="periodo" formControlName="periodo">
+                    <mat-option value="Anual">Anual</mat-option>
+                    <mat-option value="Mensual">Mensual</mat-option>
+                    <mat-option value="Diario">Diario</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label >Banco</mat-label>
+                <mat-select id="banco" formControlName="banco">
+                    <mat-option value="BCP">BCP</mat-option>
+                    <mat-option value="Interbank">Interbank</mat-option>
+                    <mat-option value="Scotiabank">Scotiabank</mat-option>
+                    <mat-option value="BN">Banco de la nación</mat-option>
+                    <mat-option value="BBVA">BBVA</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="portfolioForm__actions">
+                <button class="portfolioForm__reset" type="reset" mat-button mat-flat-button mat-dialog-close >Cancelar</button>
+                <button class="portfolioForm__submit" type="submit" mat-button mat-flat-button>Agregar</button>
+            </div>
+        </form>
+    </div>
+</div>

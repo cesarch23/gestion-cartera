@@ -1,0 +1,52 @@
+.dialog{
+    padding: 32px 64px;
+    /* box-shadow: 0px 0px 13px 0px #6D93FE;
+    border-radius: 16px; */
+}
+.dialog__header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+.dialog__content{ 
+      
+      & .portfolioForm{
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+
+        & .portfolioForm__actions{
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+
+            & .portfolioForm__reset {
+                background-color: #ECF1FF;
+                font-weight: 500;
+                color: var(--primary-color);
+                font-size: 16px;
+                padding: 16px 32px;
+             
+                flex-grow: 1;
+            }
+            
+            & .portfolioForm__submit {
+                background-color: var(--primary-color);
+                color: #fff;
+                font-weight: 500;
+                font-size: 16px;
+                padding: 16px 32px;
+      
+                flex-grow: 1;
+            }
+            & .portfolioForm__submit:hover {
+                background-color: var(--primary-color-hovered);
+            }
+        }
+    
+
+
+    }
+
+}

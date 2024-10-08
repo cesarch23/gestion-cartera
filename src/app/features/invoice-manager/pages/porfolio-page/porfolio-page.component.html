@@ -1,7 +1,9 @@
 <div class="porfolio">
     <div class="porfolio__header">
         <h1 class="portfolio___header-title">Lista de carteras</h1>
-        <button  class="portfolio___header-button" mat-button mat-flat-button> <mat-icon fontIcon="add"></mat-icon>Agregar cartera</button>
+        <button  class="portfolio___header-button" mat-button mat-flat-button (click)="openPortfolioForm()" >
+           <mat-icon fontIcon="add"></mat-icon>Agregar cartera
+        </button>
     </div>
     <div class="portfolio__table">
        
@@ -30,9 +32,6 @@
                       <button  class="table__button" mat-button mat-flat-button>
                            <mat-icon fontIcon="add"></mat-icon>
                            Agregar Factura/Letra
-                      </button>
-                      <button  class="table__button" mat-button mat-flat-button>
-                        Enviar al banco
                       </button>
                       <button  class="table__button" mat-button mat-flat-button (click)="showDetails(element.id)">
                            <mat-icon fontIcon="visibility"></mat-icon> Ver facturas/letras

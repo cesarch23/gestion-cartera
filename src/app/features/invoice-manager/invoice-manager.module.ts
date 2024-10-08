@@ -20,6 +20,8 @@ import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-d
 import {MatSortModule} from '@angular/material/sort';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PortfolioDialogComponent } from './components/portfolio-dialog/portfolio-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     PorfolioPageComponent,
     CustomerPageComponent,
     ClientDialogComponent,
-    PortfolioDetailsComponent
+    PortfolioDetailsComponent,
+    PortfolioDialogComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSortModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule,
+    MatDatepickerModule
 
   ]
 })
