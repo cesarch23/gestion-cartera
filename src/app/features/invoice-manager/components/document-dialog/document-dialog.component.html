@@ -1,0 +1,77 @@
+<div class="dialog">
+    <div class="dialog__header">
+        <h2>Crear Factura/Letra</h2>
+        <p>Por favor ingresa tus datos en los campos requeridos</p>
+
+    </div>
+    <div class="dialog__content">
+        <mat-tab-group class="dialog__tap-group" dynamicHeight>
+                <mat-tab label="Factura"> 
+                    <form action="#" class="billForm" [formGroup]="billForm" (ngSubmit)="addBill()" >
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Valor nominal</mat-label>
+                            <input formControlName="valorNominal" matInput class="billForm__input" type="number" placeholder="Ingrese el valor nominal">
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Fecha de emision</mat-label>
+                            <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmision" placeholder="seleccione una fecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="fechaEmision"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaEmision></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Fecha de vencimiento</mat-label>
+                            <input formControlName="fechaVencimiento" matInput [matDatepicker]="fechaVencimiento" placeholder="seleccione una fecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="fechaVencimiento"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaVencimiento></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Cliente</mat-label>
+                            <mat-select formControlName="cliente">
+                                <mat-option value="Pepito">Pepe pica piedras</mat-option>
+                                <mat-option value="juan">Juan miranda</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="billForm__actions">
+                            <button class="billForm__reset" type="button" mat-dialog-close mat-button mat-flat-button >Cancelar</button>
+                            <button class="billForm__submit" type="submit" mat-button mat-flat-button >Agregar</button>
+                        </div>
+                    </form>
+                </mat-tab>
+                <mat-tab label="Letra">
+                    <form action="#" class="billForm" [formGroup]="promissoryForm" (ngSubmit)="addPromissory()" >
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Valor nominal</mat-label>
+                            <input formControlName="valorNominal" matInput class="billForm__input" type="number" placeholder="Ingrese el valor nominal">
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Fecha de emision</mat-label>
+                            <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmi" placeholder="seleccione una fecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="fechaEmi"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaEmi></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Fecha de vencimiento</mat-label>
+                            <input formControlName="fechaVencimiento" matInput [matDatepicker]="fechaVenc" placeholder="seleccione una fecha">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="fechaVenc"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaVenc></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field class="billForm__field" >
+                            <mat-label>Cliente</mat-label>
+                            <mat-select formControlName="cliente">
+                                <mat-option value="Pepito">Pepe pica piedras</mat-option>
+                                <mat-option value="juan">Juan miranda</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="billForm__actions">
+                            <button class="billForm__reset" type="button" mat-dialog-close mat-button mat-flat-button >Cancelar</button>
+                            <button class="billForm__submit" type="submit" mat-button mat-flat-button >Agregar</button>
+                        </div>
+                    </form>
+                </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

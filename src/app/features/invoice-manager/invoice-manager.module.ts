@@ -22,6 +22,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PortfolioDialogComponent } from './components/portfolio-dialog/portfolio-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DocumentDialogComponent } from './components/document-dialog/document-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatSelectModule } from '@angular/material/select';
     CustomerPageComponent,
     ClientDialogComponent,
     PortfolioDetailsComponent,
-    PortfolioDialogComponent
+    PortfolioDialogComponent,
+    DocumentDialogComponent,
   ],
   imports: [
     CommonModule,

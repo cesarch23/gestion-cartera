@@ -5,7 +5,7 @@ export interface Client {
     dni: string;
     direccion: string;
 }
-export interface PortfolioDetails {
+export interface financialDocument {
     id:number;
     cliente: Client;
     estado: string;
@@ -31,5 +31,5 @@ export interface Portfolio {
     tipoTasa: string;
     periodo: string;
     banco: string;
-    documentos:PortfolioDetails[]
+    documentos:financialDocument[]
   }

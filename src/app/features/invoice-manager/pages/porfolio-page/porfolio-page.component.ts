@@ -6,6 +6,7 @@ import { Portfolio } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PortfolioDialogComponent } from '../../components/portfolio-dialog/portfolio-dialog.component';
+import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
 
 
 
@@ -43,5 +44,11 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
     this.dialog.open(PortfolioDialogComponent,{
       maxWidth:527
     })
+  }
+  openDocumentForm(id:string){
+    this.dialog.open(DocumentDialogComponent,{
+      maxWidth:527
+    })
+    
   }
 }

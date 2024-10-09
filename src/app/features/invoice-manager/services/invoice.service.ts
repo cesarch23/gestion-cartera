@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Portfolio, PortfolioDetails } from '../models/portfolio.interface';
+import { Client, Portfolio,financialDocument } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
@@ -279,6 +279,50 @@ export class InvoiceService {
     const result = arrPortfolio.find(portfolio=>portfolio.id===id);
     return result!;
   }
-
+  addDocumentToPortfolio(portfolioId:number,{tipo,valorNominal,fechaEmision,fechaVencimiento,client}:any){
+    let clientSelected:Client=client;
+    arrPortfolio.map(portf=>{
+      if(portf.id===portfolioId){
+        const id = arrPortfolio.length+1;
+        const estado = 'pendiente de pago'
+        const newDocument:financialDocument = { 
+          id,
+          cliente: clientSelected,
+          estado,
+          tipo,
+          moneda:portf.moneda,
+          valorNominal,
+          tasaDescuento:12.5,
+          montoRecibido:5000.0,
+          tcea:500,
+          tipoTasa:'nominal',
+          fechaEmision,
+          fechaDescuento: new Date(),
+          fechaVencimiento,
+          banco:portf.banco
+         }
+         //agregar al portfolio
+         //return portf; 
+        }
+        return portf;
+    })
+    //emitir el nuevo arreglo
+    /**
+     * id: 9,
+        cliente: { nombre: "Pedro", apellidos: "Cruz", dni: "12349876", direccion: "Jr. El Sol 876" },
+        estado: "pendiente de pago",
+        tipo: "letra",
+        moneda: "PEN",
+        valorNominal: 11000.345,
+        tasaDescuento: 0.12,
+        montoRecibido: 912.34,
+        tcea: 0.12,
+        tipoTasa: "nominal",
+        fechaEmision: new Date("2024-01-10"),
+        fechaDescuento: new Date("2024-02-10"),
+        fechaVencimiento: new Date("2024-05-10"),
+        banco: "BCP"
+     */
+  }
 
 }

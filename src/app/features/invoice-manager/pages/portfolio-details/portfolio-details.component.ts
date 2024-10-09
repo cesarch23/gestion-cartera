@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Portfolio, PortfolioDetails } from '../../models/portfolio.interface';
+import { Portfolio, financialDocument } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
 import { ActivatedRoute, Route, Router, Routes } from '@angular/router';
 
@@ -198,7 +198,7 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
     const id = parseInt(this.route.snapshot.paramMap.get('id') || "0");
     console.log(id)
     this.portfolio = this.invoiceServ.getDetailsById(id)
-    this.documents= new MatTableDataSource <PortfolioDetails>(this.portfolio.documentos);
+    this.documents= new MatTableDataSource <financialDocument>(this.portfolio.documentos);
   }
 
   ngAfterViewInit(): void {
