@@ -4,7 +4,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Portfolio, financialDocument } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
-import { ActivatedRoute, Route, Router, Routes } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 // }
 // const portfoDta: PortfolioDetails[] = [
@@ -186,7 +188,8 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
   
   constructor(
     private invoiceServ:InvoiceService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private dialog:MatDialog
   ){
 
   }
@@ -206,6 +209,10 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
     this.documents.sort= this.sort ? this.sort : null;
   }
 
- 
+  openDocumentDlg(){
+    this.dialog.open(DocumentDialogComponent,{
+      maxWidth: 527
+    })
+  }
 
 }

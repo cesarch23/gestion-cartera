@@ -49,6 +49,6 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
     this.dialog.open(DocumentDialogComponent,{
       maxWidth:527
     })
-    
+
   }
 }
