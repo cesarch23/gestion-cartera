@@ -28,9 +28,8 @@
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Cliente</mat-label>
-                            <mat-select formControlName="cliente">
-                                <mat-option value="Pepito">Pepe pica piedras</mat-option>
-                                <mat-option value="juan">Juan miranda</mat-option>
+                            <mat-select *ngIf="clients.length>0"  formControlName="cliente">
+                                <mat-option *ngFor="let client of clients" [value]="client"> {{ client.nombre + " " + client.apellidos + " (dni: " + client.dni+" )"  }} </mat-option>
                             </mat-select>
                         </mat-form-field>
                         <div class="billForm__actions">
@@ -61,9 +60,8 @@
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Cliente</mat-label>
-                            <mat-select formControlName="cliente">
-                                <mat-option value="Pepito">Pepe pica piedras</mat-option>
-                                <mat-option value="juan">Juan miranda</mat-option>
+                            <mat-select *ngIf="clients.length>0"  formControlName="cliente">
+                                <mat-option *ngFor="let client of clients" [value]="client"> {{ client.nombre + " " + client.apellidos }} </mat-option>
                             </mat-select>
                         </mat-form-field>
                         <div class="billForm__actions">

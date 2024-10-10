@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Client } from '../../models/portfolio.interface';
@@ -8,7 +8,9 @@ import { Client } from '../../models/portfolio.interface';
   templateUrl: './document-dialog.component.html',
   styleUrls: ['./document-dialog.component.css']
 })
-export class DocumentDialogComponent {
+export class DocumentDialogComponent implements OnInit  {
+
+  public clients:Client[]=[];
 
   constructor(
     private invoiceServ:InvoiceService,
@@ -28,13 +30,17 @@ export class DocumentDialogComponent {
     cliente:new FormControl<Client | null>(null,[Validators.required])
   })
 
+  ngOnInit(): void {
+    this.invoiceServ.clientList$.subscribe(resp=> this.clients = resp);
+  }
+
   addBill(){
     if(this.billForm.invalid){
       this.billForm.markAllAsTouched()
       return;
     }
     // agregamo dato y cerrramos
-    const {} = this.billForm.value;
+    const {valorNominal, fechaEmision, fechaVencimiento, cliente} = this.billForm.value;
     
   }
   addPromissory(){
