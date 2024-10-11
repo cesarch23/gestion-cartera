@@ -12,19 +12,48 @@
                             <mat-label>Valor nominal</mat-label>
                             <input formControlName="valorNominal" matInput class="billForm__input" type="number" placeholder="Ingrese el valor nominal">
                         </mat-form-field>
+                        <div class="row">
+                            <mat-form-field class="portfolioForm_field" >
+                                <mat-label >Tipo de tasa</mat-label>
+                                <mat-select id="tipoTasa" formControlName = "tipoTasa">
+                                    <mat-option value="Nominal">Nominal</mat-option>
+                                    <mat-option value="Efectiva">Efectiva</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="portfolioForm_field" >
+                                <mat-label>Periodo</mat-label>
+                                <mat-select id="periodo" formControlName="periodo">
+                                    <mat-option value="Anual">Anual</mat-option>
+                                    <mat-option value="Mensual">Mensual</mat-option>
+                                    <mat-option value="Diario">Diario</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        
                         <mat-form-field class="billForm__field" >
-                            <mat-label>Fecha de emision</mat-label>
-                            <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmision" placeholder="seleccione una fecha">
-                            <mat-hint>DD/MM/AAAA</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="fechaEmision"></mat-datepicker-toggle>
-                            <mat-datepicker #fechaEmision></mat-datepicker>
+                                <mat-label>Fecha de emision</mat-label>
+                                <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmision" placeholder="ingrese la fecha(DD/MM/AAAA)">
+                                <!-- <mat-hint>DD/MM/AAAA</mat-hint> -->
+                                <mat-datepicker-toggle matIconSuffix [for]="fechaEmision"></mat-datepicker-toggle>
+                                <mat-datepicker #fechaEmision></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
-                            <mat-label>Fecha de vencimiento</mat-label>
-                            <input formControlName="fechaVencimiento" matInput [matDatepicker]="fechaVencimiento" placeholder="seleccione una fecha">
-                            <mat-hint>DD/MM/AAAA</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="fechaVencimiento"></mat-datepicker-toggle>
-                            <mat-datepicker #fechaVencimiento></mat-datepicker>
+                                <mat-label>Fecha de vencimiento</mat-label>
+                                <input formControlName="fechaVencimiento" matInput [matDatepicker]="fechaVencimiento" placeholder="ingrese una fecha (DD/MM/AAAA)">
+                                <!-- <mat-hint>DD/MM/AAAA</mat-hint> -->
+                                <mat-datepicker-toggle matIconSuffix [for]="fechaVencimiento"></mat-datepicker-toggle>
+                                <mat-datepicker #fechaVencimiento></mat-datepicker>
+                        </mat-form-field>
+                        
+                        <mat-form-field>
+                            <mat-label >Banco</mat-label>
+                            <mat-select formControlName="banco">
+                                <mat-option *ngFor="let bank of banks" [value]="bank"> {{ bank.nombre }}  </mat-option>
+                                <!-- <mat-option value="Interbank">Interbank</mat-option>
+                                <mat-option value="Scotiabank">Scotiabank</mat-option>
+                                <mat-option value="BN">Banco de la nación</mat-option>
+                                <mat-option value="BBVA">BBVA</mat-option> -->
+                            </mat-select>
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Cliente</mat-label>

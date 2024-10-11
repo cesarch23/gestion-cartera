@@ -18,6 +18,12 @@
         flex-direction: column;
         padding-top: 20px;
 
+        & .row{
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
         & .billForm__actions{
             display: flex;
             justify-content: flex-end;

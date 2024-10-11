@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Client, Portfolio,financialDocument } from '../models/portfolio.interface';
+import { Bank, BillForm, Client, Portfolio,PortfolioForm,financialDocument } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
@@ -32,16 +32,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 // ];
 
 
-const arrPortfolio: Portfolio[] = [
+let arrPortfolio: Portfolio[] = [
   {
     id: 1,
     nombre: 'cartera 1',
-    moneda: 'soles',
+    moneda: 'PEN',
     estado: 'pendiente',
-    fechaDescuento: '12-12-2020',
-    tipoTasa: 'nominal',
-    periodo: 'mensual',
-    banco: 'BCP',
+    fechaDescuento: new Date(),
+    //tipoTasa: 'nominal',
+    //periodo: 'mensual',
+    bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
     documentos: [
       {
         id: 1,
@@ -50,14 +50,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "letra",
         moneda: "PEN",
         valorNominal: 10000.123,
-        tasaDescuento: 0.12,
         montoRecibido: 123.34,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-10-01"),
         fechaDescuento: new Date("2024-11-01"),
         fechaVencimiento: new Date("2025-01-01"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "BCP", tasaDescuentoRef:0.12 },
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento:12
       },
       {
         id: 2,
@@ -66,26 +68,26 @@ const arrPortfolio: Portfolio[] = [
         tipo: "factura",
         moneda: "USD",
         valorNominal: 5000.567,
-        tasaDescuento: 0.12,
         montoRecibido: 223.45,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-09-15"),
         fechaDescuento: new Date("2024-10-15"),
         fechaVencimiento: new Date("2024-12-15"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "BCP", tasaDescuentoRef:0.12 },
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento:12
       },
     ]
   },
   {
     id: 2,
     nombre: 'cartera 2',
-    moneda: 'dólares',
+    moneda: 'USD',
     estado: 'cancelado',
-    fechaDescuento: '15-01-2021',
-    tipoTasa: 'efectiva',
-    periodo: 'trimestral',
-    banco: 'Interbank',
+    fechaDescuento: new Date('15-01-2021'),
+    bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
     documentos: [
       {
         id: 3,
@@ -94,14 +96,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "letra",
         moneda: "PEN",
         valorNominal: 15000.789,
-        tasaDescuento: 0.12,
         montoRecibido: 345.67,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-08-01"),
         fechaDescuento: new Date("2024-09-01"),
         fechaVencimiento: new Date("2024-12-01"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento:3
       },
       {
         id: 4,
@@ -110,26 +114,26 @@ const arrPortfolio: Portfolio[] = [
         tipo: "factura",
         moneda: "USD",
         valorNominal: 7000.234,
-        tasaDescuento: 0.12,
         montoRecibido: 456.78,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-07-10"),
         fechaDescuento: new Date("2024-08-10"),
         fechaVencimiento: new Date("2024-11-10"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento:12
       },
     ]
   },
   {
     id: 3,
     nombre: 'cartera 3',
-    moneda: 'soles',
+    moneda: 'PEN',
     estado: 'pendiente',
-    fechaDescuento: '22-02-2021',
-    tipoTasa: 'nominal',
-    periodo: 'anual',
-    banco: 'Scotiabank',
+    fechaDescuento: new Date('15-01-2021'),
+    bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
     documentos: [
       {
         id: 5,
@@ -138,14 +142,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "letra",
         moneda: "PEN",
         valorNominal: 9000.456,
-        tasaDescuento: 0.12,
         montoRecibido: 567.89,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-06-01"),
         fechaDescuento: new Date("2024-07-01"),
         fechaVencimiento: new Date("2024-10-01"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento: 12
       },
       {
         id: 6,
@@ -154,26 +160,28 @@ const arrPortfolio: Portfolio[] = [
         tipo: "factura",
         moneda: "USD",
         valorNominal: 4000.890,
-        tasaDescuento: 0.12,
         montoRecibido: 678.90,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-05-05"),
         fechaDescuento: new Date("2024-06-05"),
         fechaVencimiento: new Date("2024-09-05"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        periodo: 'mensual',
+        plazo: 12,
+        tasaDescuento:3
       },
     ]
   },
   {
     id: 4,
     nombre: 'cartera 4',
-    moneda: 'soles',
+    moneda: 'PEN',
     estado: 'cancelado',
-    fechaDescuento: '30-03-2021',
-    tipoTasa: 'efectiva',
-    periodo: 'mensual',
-    banco: 'BBVA',
+    fechaDescuento: new Date('30-03-2021'),
+    //tipoTasa: 'efectiva',
+    //periodo: 'mensual',
+    bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
     documentos: [
       {
         id: 7,
@@ -182,14 +190,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "letra",
         moneda: "PEN",
         valorNominal: 12000.234,
-        tasaDescuento: 0.12,
         montoRecibido: 789.01,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-04-15"),
         fechaDescuento: new Date("2024-05-15"),
         fechaVencimiento: new Date("2024-08-15"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        periodo:'mensual',
+        plazo:12,
+        tasaDescuento: 0.12,
       },
       {
         id: 8,
@@ -198,26 +208,28 @@ const arrPortfolio: Portfolio[] = [
         tipo: "factura",
         moneda: "USD",
         valorNominal: 3000.123,
-        tasaDescuento: 0.12,
         montoRecibido: 890.12,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-03-20"),
         fechaDescuento: new Date("2024-04-20"),
         fechaVencimiento: new Date("2024-07-20"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        periodo:'mensual',
+        plazo:12,
+        tasaDescuento: 0.12,
       },
     ]
   },
   {
     id: 5,
     nombre: 'cartera 5',
-    moneda: 'dólares',
+    moneda: 'USD',
     estado: 'pendiente',
-    fechaDescuento: '05-04-2021',
-    tipoTasa: 'nominal',
-    periodo: 'semestral',
-    banco: 'BCP',
+    fechaDescuento: new Date('05-04-2021'),
+    //tipoTasa: 'nominal',
+    //periodo: 'semestral',
+    bancoEnviado:  {nombre: "Scotiabank", tasaDescuentoRef:0.13 },
     documentos: [
       {
         id: 9,
@@ -226,14 +238,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "letra",
         moneda: "PEN",
         valorNominal: 11000.345,
-        tasaDescuento: 0.12,
         montoRecibido: 912.34,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-01-10"),
         fechaDescuento: new Date("2024-02-10"),
         fechaVencimiento: new Date("2024-05-10"),
-        banco: "BCP"
+        bancoEnviado:  {nombre: "Scotiabank", tasaDescuentoRef:0.13 },
+        periodo:'mensual',
+        plazo:12,
+        tasaDescuento: 0.12,
       },
       {
         id: 10,
@@ -242,14 +256,16 @@ const arrPortfolio: Portfolio[] = [
         tipo: "factura",
         moneda: "USD",
         valorNominal: 6000.234,
-        tasaDescuento: 0.12,
         montoRecibido: 456.78,
         tcea: 0.12,
         tipoTasa: "nominal",
         fechaEmision: new Date("2024-02-15"),
         fechaDescuento: new Date("2024-03-15"),
         fechaVencimiento: new Date("2024-06-15"),
-        banco: "BCP"
+        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        periodo:'mensual',
+        plazo:12,
+        tasaDescuento: 0.12,
       },
     ]
   },
@@ -276,6 +292,13 @@ const arrClients: Client[] = [
   { nombre: 'Víctor', apellidos: 'Pineda', dni: '89012346S', direccion: 'Calle del Viento 100' },
   { nombre: 'Cecilia', apellidos: 'Vega', dni: '90123457T', direccion: 'Calle del Agua 200' },
 ];
+
+let arrBank:Bank[]= [ 
+  {nombre:'interbank', tasaDescuentoRef:0.12},
+  {nombre:'BCP', tasaDescuentoRef:0.12},
+  {nombre:'Banco de la nacion', tasaDescuentoRef:0.12},
+  {nombre:'BBVA', tasaDescuentoRef:0.12},
+]
 @Injectable({
   providedIn: 'root'
 })
@@ -285,6 +308,9 @@ export class InvoiceService {
   private clientList = new BehaviorSubject<Client[]>(arrClients);
   clientList$ =  this.clientList.asObservable();
 
+  private bankList = new BehaviorSubject<Bank[]>(arrBank);
+  bankList$ = this.bankList.asObservable();
+  
   constructor(
   ) { }
   
@@ -292,10 +318,11 @@ export class InvoiceService {
   get portfolios(): Observable<Portfolio[]>{
     return this.portfoliosList.asObservable();
   }
-  addPortfolio({nombre, moneda, fechaDescuento, banco, tipoTasa,periodo}:any){
+  addPortfolio({nombre, moneda, fechaDescuento, bancoEnviado}:PortfolioForm){
     const estado = 'pendiente';
     const id=arrPortfolio.length+1;
-    const portfolio:Portfolio = {id,nombre,moneda,estado, banco,tipoTasa,periodo, fechaDescuento,documentos:[]}
+    // const portfolio:Portfolio = {id,nombre,moneda,estado, bancoEnviado, tipoTasa,periodo, fechaDescuento,documentos:[]}
+    const portfolio:Portfolio = {id,nombre,moneda,estado, bancoEnviado, fechaDescuento,documentos:[]}
     arrPortfolio.unshift(portfolio);
     this.portfoliosList.next(arrPortfolio);
 
@@ -304,51 +331,46 @@ export class InvoiceService {
     const result = arrPortfolio.find(portfolio=>portfolio.id===id);
     return result!;
   }
-  addDocumentToPortfolio(portfolioId:number,{tipo,valorNominal,fechaEmision,fechaVencimiento,client}:any){
-    let clientSelected:Client=client;
-    arrPortfolio.map(portf=>{
-      if(portf.id===portfolioId){
-        const id = arrPortfolio.length+1;
-        const estado = 'pendiente de pago'
-        const newDocument:financialDocument = { 
+  getPortfolioById(id:number):Portfolio | undefined{
+    return arrPortfolio.find(portfolio=> portfolio.id === id);
+  }
+  addBillToPortfolio(portfolioId:number,{valorNominal,fechaEmision,fechaVencimiento,cliente, bancoEnviado, periodo}:BillForm){
+
+    const portfolioResult = this.getPortfolioById(portfolioId)
+    if(!portfolioResult) return;
+
+    const id = arrPortfolio.length+1;
+    const estado = 'pendiente de pago'
+    const tipo = 'factura'
+    const newDocument:financialDocument = { 
           id,
-          cliente: clientSelected,
+          cliente: cliente,
           estado,
           tipo,
-          moneda:portf.moneda,
+          moneda:portfolioResult.moneda,
           valorNominal,
-          tasaDescuento:12.5,
           montoRecibido:5000.0,
           tcea:500,
           tipoTasa:'nominal',
-          fechaEmision,
+          fechaEmision, // se genera cuando se desea enviar al banco
           fechaDescuento: new Date(),
           fechaVencimiento,
-          banco:portf.banco
+          bancoEnviado,
+          periodo, 
+          plazo:12, // hallar el plzo en base a la fechas
+          tasaDescuento: 22, // hallar la tasa de dsto en base al banco
          }
-         //agregar al portfolio
-         //return portf; 
-        }
-        return portf;
+         //tengo facturas y letra ya emitidas en un banco especifico
+         
+    const newArr = arrPortfolio.map(portfolio=>{
+      if(portfolio.id === portfolioId) portfolio.documentos.unshift(newDocument);
+      return portfolio;
     })
-    //emitir el nuevo arreglo
-    /**
-     * id: 9,
-        cliente: { nombre: "Pedro", apellidos: "Cruz", dni: "12349876", direccion: "Jr. El Sol 876" },
-        estado: "pendiente de pago",
-        tipo: "letra",
-        moneda: "PEN",
-        valorNominal: 11000.345,
-        tasaDescuento: 0.12,
-        montoRecibido: 912.34,
-        tcea: 0.12,
-        tipoTasa: "nominal",
-        fechaEmision: new Date("2024-01-10"),
-        fechaDescuento: new Date("2024-02-10"),
-        fechaVencimiento: new Date("2024-05-10"),
-        banco: "BCP"
-     */
+    arrPortfolio = [...newArr];
+    this.portfoliosList.next(newArr); 
+    
   }
+
 
   addClient(client:Client){
     arrClients.push(client);

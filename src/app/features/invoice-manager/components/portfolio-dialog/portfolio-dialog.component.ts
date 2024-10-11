@@ -32,8 +32,9 @@ export class PortfolioDialogComponent {
         this.portfolioForm.markAllAsTouched;
         return;
       }
-    const {nombre, moneda, fechaDescuento, tipoTasa, periodo, banco} = this.portfolioForm.value;
-    this.invoiceServ.addPortfolio({nombre, moneda, fechaDescuento,banco,tipoTasa,periodo});
+    // const {nombre, moneda, fechaDescuento, tipoTasa, periodo, bancoEnviado} = this.portfolioForm.value;
+    const {nombre, moneda, fechaDescuento, bancoEnviado} = this.portfolioForm.value;
+    this.invoiceServ.addPortfolio({nombre, moneda, fechaDescuento,bancoEnviado});
     this.portfolioDialog.close();
   }
 

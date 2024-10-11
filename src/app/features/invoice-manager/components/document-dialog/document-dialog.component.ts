@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Client } from '../../models/portfolio.interface';
+import { Bank, BillForm, Client } from '../../models/portfolio.interface';
+import { DialogRef } from '@angular/cdk/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-document-dialog',
@@ -11,16 +14,22 @@ import { Client } from '../../models/portfolio.interface';
 export class DocumentDialogComponent implements OnInit  {
 
   public clients:Client[]=[];
+  public banks:Bank[] = [];
 
   constructor(
     private invoiceServ:InvoiceService,
-    
+    private documentDialog:DialogRef<DocumentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:{id:number, navigate: boolean},
+    private router:Router
   ){}
   billForm:FormGroup = new FormGroup({
     valorNominal:new FormControl<number | null>(null,[Validators.required, Validators.min(0)]),
+    tipoTasa:new FormControl<string | null>(null,[Validators.required]),
+    periodo:new FormControl<string | null>(null,[Validators.required]),
     fechaEmision:new FormControl<Date | null>(null,[Validators.required]),
     fechaVencimiento:new FormControl<Date | null>(null,[Validators.required]),
-    cliente:new FormControl<Client | null>(null,[Validators.required])
+    cliente:new FormControl<Client | null>(null,[Validators.required]),
+    banco:new FormControl < Bank | null>(null,[Validators.required] )
   })
 
   promissoryForm:FormGroup = new FormGroup({
@@ -32,6 +41,8 @@ export class DocumentDialogComponent implements OnInit  {
 
   ngOnInit(): void {
     this.invoiceServ.clientList$.subscribe(resp=> this.clients = resp);
+    this.invoiceServ.bankList$.subscribe(resp=>this.banks=resp);
+
   }
 
   addBill(){
@@ -40,8 +51,13 @@ export class DocumentDialogComponent implements OnInit  {
       return;
     }
     // agregamo dato y cerrramos
-    const {valorNominal, fechaEmision, fechaVencimiento, cliente} = this.billForm.value;
-    
+    const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, bancoEnviado, periodo }:BillForm = this.billForm.value;
+    console.log(this.billForm)
+    console.log({idport: this.data.id})
+    this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,bancoEnviado,periodo})
+    this.documentDialog.close();  
+    // redirigir a la tabla de detalles
+    if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
   }
   addPromissory(){
     if(this.promissoryForm.invalid){

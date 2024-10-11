@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -177,14 +177,16 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './portfolio-details.component.html',
   styleUrls: ['./portfolio-details.component.css']
 })
-export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
+export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChanges {
 
   detailsColumns = ['id','editar','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido'
                     ,'tcea','tipoTasa','fechaEmision','fechaDescuento','fechaVencimiento','banco']
 
   
-  portfolio?:Portfolio;
-  documents:any;
+  portfolios:Portfolio[]=[];
+  documents = new MatTableDataSource<financialDocument>([]);
+  //documents:any=[];// debe ser de tipo financialDocument
+  private portfolioId:number=0;
   
   constructor(
     private invoiceServ:InvoiceService,
@@ -193,17 +195,26 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
   ){
 
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.portfolios){
+     // this.documents = this.invoiceServ.getDetailsById(this.portfolioId).documentos
+    }
+  }
 
-  @ViewChild('paginator') paginator?:MatPaginator
+  @ViewChild('MatPaginator2') paginator?: MatPaginator
   @ViewChild(MatSort) sort?:MatSort 
 
   ngOnInit(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id') || "0");
-    console.log(id)
-    this.portfolio = this.invoiceServ.getDetailsById(id)
-    this.documents= new MatTableDataSource <financialDocument>(this.portfolio.documentos);
+    this.portfolioId = parseInt(this.route.snapshot.paramMap.get('id') || "0");
+    
+    this.invoiceServ.portfolios.subscribe(resp=>{
+      this.portfolios=resp
+      this.documents.data = this.invoiceServ.getDetailsById(this.portfolioId).documentos
+  
+    })    
+         
   }
-
+  
   ngAfterViewInit(): void {
     this.documents.paginator = this.paginator ? this.paginator : null;
     this.documents.sort= this.sort ? this.sort : null;
@@ -211,8 +222,10 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit {
 
   openDocumentDlg(){
     this.dialog.open(DocumentDialogComponent,{
-      maxWidth: 527
+      data:{id:this.portfolioId, navigate: false},
+      maxWidth: 608
     })
+    console.log("id de detalles",this.portfolioId)
   }
-
+    
 }
