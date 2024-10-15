@@ -34,7 +34,6 @@ export interface BillForm {
     fechaEmision: Date ;
     fechaVencimiento:Date ;
     cliente: Client ;
-    bancoEnviado:Bank;
     periodo: "mensual" | "anual" | "diario";
 }
 export interface Portfolio {

@@ -334,7 +334,7 @@ export class InvoiceService {
   getPortfolioById(id:number):Portfolio | undefined{
     return arrPortfolio.find(portfolio=> portfolio.id === id);
   }
-  addBillToPortfolio(portfolioId:number,{valorNominal,fechaEmision,fechaVencimiento,cliente, bancoEnviado, periodo}:BillForm){
+  addBillToPortfolio(portfolioId:number,{valorNominal,fechaEmision,fechaVencimiento,cliente, periodo}:BillForm){
 
     const portfolioResult = this.getPortfolioById(portfolioId)
     if(!portfolioResult) return;
@@ -355,7 +355,7 @@ export class InvoiceService {
           fechaEmision, // se genera cuando se desea enviar al banco
           fechaDescuento: new Date(),
           fechaVencimiento,
-          bancoEnviado,
+          bancoEnviado: portfolioResult.bancoEnviado,
           periodo, 
           plazo:12, // hallar el plzo en base a la fechas
           tasaDescuento: 22, // hallar la tasa de dsto en base al banco

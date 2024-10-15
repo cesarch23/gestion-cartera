@@ -44,17 +44,6 @@
                                 <mat-datepicker-toggle matIconSuffix [for]="fechaVencimiento"></mat-datepicker-toggle>
                                 <mat-datepicker #fechaVencimiento></mat-datepicker>
                         </mat-form-field>
-                        
-                        <mat-form-field>
-                            <mat-label >Banco</mat-label>
-                            <mat-select formControlName="banco">
-                                <mat-option *ngFor="let bank of banks" [value]="bank"> {{ bank.nombre }}  </mat-option>
-                                <!-- <mat-option value="Interbank">Interbank</mat-option>
-                                <mat-option value="Scotiabank">Scotiabank</mat-option>
-                                <mat-option value="BN">Banco de la nación</mat-option>
-                                <mat-option value="BBVA">BBVA</mat-option> -->
-                            </mat-select>
-                        </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Cliente</mat-label>
                             <mat-select *ngIf="clients.length>0"  formControlName="cliente">
