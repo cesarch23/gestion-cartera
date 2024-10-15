@@ -17,16 +17,6 @@
       </div>
     </div>
   </div>
-  
-  <div class="porfolio__filter">
-    <mat-form-field>
-      <mat-label>Ingresa la fecha de descuento</mat-label>
-      <input matInput [matDatepicker]="picker">
-      <mat-hint>DD/MM/AAAA</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
 
   <div class="portfolio__table">
     <div class="portfolio__table-container" *ngIf=" portfolios.length >0 " >

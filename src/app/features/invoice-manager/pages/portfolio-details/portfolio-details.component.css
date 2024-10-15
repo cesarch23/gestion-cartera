@@ -57,14 +57,6 @@
     }
 
 }
-.porfolio__filter{
-    background-color: #fff;
-    padding: 16px;
-    
-    & mat-form-field{
-        width:25%;
-    }
-}
 .portfolio__table{
    width: 100%;
 }
