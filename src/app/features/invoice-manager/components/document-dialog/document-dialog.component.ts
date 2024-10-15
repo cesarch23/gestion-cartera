@@ -33,6 +33,8 @@ export class DocumentDialogComponent implements OnInit  {
 
   promissoryForm:FormGroup = new FormGroup({
     valorNominal:new FormControl<number | null>(null,[Validators.required, Validators.min(0)]),
+    tipoTasa:new FormControl<string | null>(null,[Validators.required]),
+    periodo:new FormControl<string | null>(null,[Validators.required]),
     fechaEmision:new FormControl<Date | null>(null,[Validators.required]),
     fechaVencimiento:new FormControl<Date | null>(null,[Validators.required]),
     cliente:new FormControl<Client | null>(null,[Validators.required])
@@ -49,13 +51,9 @@ export class DocumentDialogComponent implements OnInit  {
       this.billForm.markAllAsTouched()
       return;
     }
-    // agregamo dato y cerrramos
     const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, periodo }:BillForm = this.billForm.value;
-    console.log(this.billForm)
-    console.log({idport: this.data.id})
     this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,periodo})
     this.documentDialog.close();  
-    // redirigir a la tabla de detalles
     if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
   }
   addPromissory(){
@@ -63,5 +61,16 @@ export class DocumentDialogComponent implements OnInit  {
       this.promissoryForm.markAllAsTouched()
       return;
     }
+    const {
+      valorNominal, 
+      tipoTasa,
+      fechaEmision,
+      fechaVencimiento,
+      cliente,
+      periodo
+    }: BillForm = this.promissoryForm.value;
+    this.invoiceServ.addPromissoryToPortfolio(this.data.id, {valorNominal, tipoTasa,fechaEmision, fechaVencimiento, cliente, periodo})
+    this.documentDialog.close();
+    if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`)
   }
 }

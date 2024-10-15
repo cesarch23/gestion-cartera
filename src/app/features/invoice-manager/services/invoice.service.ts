@@ -371,7 +371,42 @@ export class InvoiceService {
     
   }
 
+  addPromissoryToPortfolio(portfolioId:number,{valorNominal,fechaEmision,fechaVencimiento,cliente, periodo}:BillForm){
 
+    const portfolioResult = this.getPortfolioById(portfolioId)
+    if(!portfolioResult) return;
+
+    const id = arrPortfolio.length+1;
+    const estado = 'pendiente de pago'
+    const tipo = 'letra'
+    const newDocument:financialDocument = { 
+          id,
+          cliente: cliente,
+          estado,
+          tipo,
+          moneda:portfolioResult.moneda,
+          valorNominal,
+          montoRecibido:5000.0,
+          tcea:500,
+          tipoTasa:'nominal',
+          fechaEmision, // se genera cuando se desea enviar al banco
+          fechaDescuento: new Date(),
+          fechaVencimiento,
+          bancoEnviado: portfolioResult.bancoEnviado,
+          periodo, 
+          plazo:12, // hallar el plzo en base a la fechas
+          tasaDescuento: 22, // hallar la tasa de dsto en base al banco
+         }
+         //tengo facturas y letra ya emitidas en un banco especifico
+         
+    const newArr = arrPortfolio.map(portfolio=>{
+      if(portfolio.id === portfolioId) portfolio.documentos.unshift(newDocument);
+      return portfolio;
+    })
+    arrPortfolio = [...newArr];
+    this.portfoliosList.next(newArr); 
+    
+  }
   addClient(client:Client){
     arrClients.push(client);
     this.clientList.next(arrClients);

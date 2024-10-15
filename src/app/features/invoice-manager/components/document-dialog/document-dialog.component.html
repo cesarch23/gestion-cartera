@@ -62,24 +62,43 @@
                             <mat-label>Valor nominal</mat-label>
                             <input formControlName="valorNominal" matInput class="billForm__input" type="number" placeholder="Ingrese el valor nominal">
                         </mat-form-field>
+                        
+                        <div class="row">
+                            <mat-form-field class="portfolioForm_field" >
+                                <mat-label >Tipo de tasa</mat-label>
+                                <mat-select id="tipoTasa" formControlName = "tipoTasa">
+                                    <mat-option value="Nominal">Nominal</mat-option>
+                                    <mat-option value="Efectiva">Efectiva</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="portfolioForm_field" >
+                                <mat-label>Periodo</mat-label>
+                                <mat-select id="periodo" formControlName="periodo">
+                                    <mat-option value="Anual">Anual</mat-option>
+                                    <mat-option value="Mensual">Mensual</mat-option>
+                                    <mat-option value="Diario">Diario</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
                         <mat-form-field class="billForm__field" >
                             <mat-label>Fecha de emision</mat-label>
                             <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmi" placeholder="seleccione una fecha">
-                            <mat-hint>DD/MM/AAAA</mat-hint>
+                            <!-- <mat-hint>DD/MM/AAAA</mat-hint> -->
                             <mat-datepicker-toggle matIconSuffix [for]="fechaEmi"></mat-datepicker-toggle>
                             <mat-datepicker #fechaEmi></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Fecha de vencimiento</mat-label>
                             <input formControlName="fechaVencimiento" matInput [matDatepicker]="fechaVenc" placeholder="seleccione una fecha">
-                            <mat-hint>DD/MM/AAAA</mat-hint>
+                            <!-- <mat-hint>DD/MM/AAAA</mat-hint> -->
                             <mat-datepicker-toggle matIconSuffix [for]="fechaVenc"></mat-datepicker-toggle>
                             <mat-datepicker #fechaVenc></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field class="billForm__field" >
                             <mat-label>Cliente</mat-label>
                             <mat-select *ngIf="clients.length>0"  formControlName="cliente">
-                                <mat-option *ngFor="let client of clients" [value]="client"> {{ client.nombre + " " + client.apellidos }} </mat-option>
+                                <mat-option *ngFor="let client of clients" [value]="client"> {{ client.nombre + " " + client.apellidos +" "+ client.dni }} </mat-option>
                             </mat-select>
                         </mat-form-field>
                         <div class="billForm__actions">
