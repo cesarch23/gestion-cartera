@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Bank, BillForm, Client, Portfolio,PortfolioForm,financialDocument } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as moment from 'moment';
 
 
 // const arrPortfolio: Portfolio[] = [
@@ -41,7 +42,7 @@ let arrPortfolio: Portfolio[] = [
     fechaDescuento: new Date(),
     //tipoTasa: 'nominal',
     //periodo: 'mensual',
-    bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+    bancoEnviado: {nombre: "Interbank", tasaEfectivaAnual:0.50 },
     documentos: [
       {
         id: 1,
@@ -56,10 +57,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-10-01"),
         fechaDescuento: new Date("2024-11-01"),
         fechaVencimiento: new Date("2025-01-01"),
-        bancoEnviado: {nombre: "BCP", tasaDescuentoRef:0.12 },
+        bancoEnviado: {nombre: "BCP", tasaEfectivaAnual:0.12 },
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento:12
+        tasaDescuento:12,
+        interesDescontado:12
       },
       {
         id: 2,
@@ -74,10 +76,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-09-15"),
         fechaDescuento: new Date("2024-10-15"),
         fechaVencimiento: new Date("2024-12-15"),
-        bancoEnviado: {nombre: "BCP", tasaDescuentoRef:0.12 },
+        bancoEnviado: {nombre: "BCP", tasaEfectivaAnual:0.12 },
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento:12
+        tasaDescuento:12,
+        interesDescontado:12,
       },
     ]
   },
@@ -87,7 +90,7 @@ let arrPortfolio: Portfolio[] = [
     moneda: 'USD',
     estado: 'cancelado',
     fechaDescuento: new Date('15-01-2021'),
-    bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+    bancoEnviado: {nombre: "Interbank", tasaEfectivaAnual:0.50 },
     documentos: [
       {
         id: 3,
@@ -102,10 +105,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-08-01"),
         fechaDescuento: new Date("2024-09-01"),
         fechaVencimiento: new Date("2024-12-01"),
-        bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+        bancoEnviado: {nombre: "Interbank", tasaEfectivaAnual:0.50 },
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento:3
+        tasaDescuento:3,
+        interesDescontado:12
       },
       {
         id: 4,
@@ -120,10 +124,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-07-10"),
         fechaDescuento: new Date("2024-08-10"),
         fechaVencimiento: new Date("2024-11-10"),
-        bancoEnviado: {nombre: "Interbank", tasaDescuentoRef:0.50 },
+        bancoEnviado: {nombre: "Interbank", tasaEfectivaAnual:0.50 },
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento:12
+        tasaDescuento:12,
+        interesDescontado:12
       },
     ]
   },
@@ -133,7 +138,7 @@ let arrPortfolio: Portfolio[] = [
     moneda: 'PEN',
     estado: 'pendiente',
     fechaDescuento: new Date('15-01-2021'),
-    bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+    bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
     documentos: [
       {
         id: 5,
@@ -148,10 +153,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-06-01"),
         fechaDescuento: new Date("2024-07-01"),
         fechaVencimiento: new Date("2024-10-01"),
-        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento: 12
+        tasaDescuento: 12,
+        interesDescontado:12
       },
       {
         id: 6,
@@ -166,10 +172,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-05-05"),
         fechaDescuento: new Date("2024-06-05"),
         fechaVencimiento: new Date("2024-09-05"),
-        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
         periodo: 'mensual',
         plazo: 12,
-        tasaDescuento:3
+        tasaDescuento:3,
+        interesDescontado:12
       },
     ]
   },
@@ -181,7 +188,7 @@ let arrPortfolio: Portfolio[] = [
     fechaDescuento: new Date('30-03-2021'),
     //tipoTasa: 'efectiva',
     //periodo: 'mensual',
-    bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+    bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
     documentos: [
       {
         id: 7,
@@ -196,10 +203,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-04-15"),
         fechaDescuento: new Date("2024-05-15"),
         fechaVencimiento: new Date("2024-08-15"),
-        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
         periodo:'mensual',
         plazo:12,
         tasaDescuento: 0.12,
+        interesDescontado:12
       },
       {
         id: 8,
@@ -214,10 +222,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-03-20"),
         fechaDescuento: new Date("2024-04-20"),
         fechaVencimiento: new Date("2024-07-20"),
-        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
         periodo:'mensual',
         plazo:12,
         tasaDescuento: 0.12,
+        interesDescontado:12,
       },
     ]
   },
@@ -229,7 +238,7 @@ let arrPortfolio: Portfolio[] = [
     fechaDescuento: new Date('05-04-2021'),
     //tipoTasa: 'nominal',
     //periodo: 'semestral',
-    bancoEnviado:  {nombre: "Scotiabank", tasaDescuentoRef:0.13 },
+    bancoEnviado:  {nombre: "Scotiabank", tasaEfectivaAnual:0.13 },
     documentos: [
       {
         id: 9,
@@ -244,10 +253,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-01-10"),
         fechaDescuento: new Date("2024-02-10"),
         fechaVencimiento: new Date("2024-05-10"),
-        bancoEnviado:  {nombre: "Scotiabank", tasaDescuentoRef:0.13 },
+        bancoEnviado:  {nombre: "Scotiabank", tasaEfectivaAnual:0.13 },
         periodo:'mensual',
         plazo:12,
         tasaDescuento: 0.12,
+        interesDescontado:12,
       },
       {
         id: 10,
@@ -262,10 +272,11 @@ let arrPortfolio: Portfolio[] = [
         fechaEmision: new Date("2024-02-15"),
         fechaDescuento: new Date("2024-03-15"),
         fechaVencimiento: new Date("2024-06-15"),
-        bancoEnviado: {nombre: "Scotiabank", tasaDescuentoRef:0.13 } ,
+        bancoEnviado: {nombre: "Scotiabank", tasaEfectivaAnual:0.13 } ,
         periodo:'mensual',
         plazo:12,
         tasaDescuento: 0.12,
+        interesDescontado:12,
       },
     ]
   },
@@ -294,10 +305,10 @@ const arrClients: Client[] = [
 ];
 
 let arrBank:Bank[]= [ 
-  {nombre:'interbank', tasaDescuentoRef:0.12},
-  {nombre:'BCP', tasaDescuentoRef:0.12},
-  {nombre:'Banco de la nacion', tasaDescuentoRef:0.12},
-  {nombre:'BBVA', tasaDescuentoRef:0.12},
+  {nombre:'interbank', tasaEfectivaAnual:0.12},
+  {nombre:'BCP', tasaEfectivaAnual:0.12},
+  {nombre:'Banco de la nacion', tasaEfectivaAnual:0.12},
+  {nombre:'BBVA', tasaEfectivaAnual:0.12},
 ]
 @Injectable({
   providedIn: 'root'
@@ -334,14 +345,54 @@ export class InvoiceService {
   getPortfolioById(id:number):Portfolio | undefined{
     return arrPortfolio.find(portfolio=> portfolio.id === id);
   }
-  addBillToPortfolio(portfolioId:number,{valorNominal,fechaEmision,fechaVencimiento,cliente, periodo}:BillForm){
+  calcTasa(tipoTasa:string, periodo:string, banco:Bank):number{
+    if(tipoTasa === 'efectiva'){
+
+      if(periodo === 'anual' )
+        return banco.tasaEfectivaAnual; 
+      
+      if(periodo === 'mensual')
+      {
+        const tem = Math.pow(( 1 + banco.tasaEfectivaAnual ),(12)) - 1;
+        // TE2 =  (1+TE1)^(n2/n1) - 1
+        return tem;
+      }
+      
+      if(periodo === 'diario')
+      {
+        const ted = Math.pow(( 1 + banco.tasaEfectivaAnual ),(360)) - 1;
+        return ted;
+      }
+
+    }
+    if(tipoTasa === 'nominal'){
+      
+      const tasaNominalAnual = 360*( Math.pow((1+banco.tasaEfectivaAnual),(1/2))) -1 
+
+      return 0;
+    }
+    
+    return 0;
+  }
+  addBillToPortfolio(portfolioId:number,{valorNominal, tipoTasa,fechaEmision,fechaVencimiento,cliente, periodo}:BillForm){
 
     const portfolioResult = this.getPortfolioById(portfolioId)
     if(!portfolioResult) return;
 
-    const id = arrPortfolio.length+1;
+    
+    const id = 12;
     const estado = 'pendiente de pago'
     const tipo = 'factura'
+    const tasaEfectivaPeriodo = this.calcTasa(tipoTasa,periodo,portfolioResult.bancoEnviado)
+    debugger
+    const tasaDescuentoPeriodo = tasaEfectivaPeriodo/(1.00 +tasaEfectivaPeriodo)// me quede aqui 
+    const valorRecibido = valorNominal*(1-tasaDescuentoPeriodo)
+    
+    const fechaVenc = moment(fechaVencimiento)
+    const fechaEmi = moment(fechaEmision)
+    const plazo = fechaVenc.diff(fechaEmi,'days')
+    console.log(plazo)
+    
     const newDocument:financialDocument = { 
           id,
           cliente: cliente,
@@ -349,16 +400,17 @@ export class InvoiceService {
           tipo,
           moneda:portfolioResult.moneda,
           valorNominal,
-          montoRecibido:5000.0,
-          tcea:500,
-          tipoTasa:'nominal',
-          fechaEmision, // se genera cuando se desea enviar al banco
+          montoRecibido:valorRecibido,//calcular el monto recibido en funcion del banco
+          tcea:500,// hallar el tcea
+          tipoTasa:tipoTasa,
+          fechaEmision,
           fechaDescuento: new Date(),
           fechaVencimiento,
           bancoEnviado: portfolioResult.bancoEnviado,
           periodo, 
-          plazo:12, // hallar el plzo en base a la fechas
-          tasaDescuento: 22, // hallar la tasa de dsto en base al banco
+          plazo:plazo, // hallar el plazo en base a la fechas -- esta en dias
+          tasaDescuento: tasaDescuentoPeriodo, // hallar la tasa de dsto en base al banco
+          interesDescontado:12, // hallar la tasa de dsto en base al banco
          }
          //tengo facturas y letra ya emitidas en un banco especifico
          
@@ -379,6 +431,7 @@ export class InvoiceService {
     const id = arrPortfolio.length+1;
     const estado = 'pendiente de pago'
     const tipo = 'letra'
+    const interesDescontado = 0
     const newDocument:financialDocument = { 
           id,
           cliente: cliente,
@@ -396,6 +449,7 @@ export class InvoiceService {
           periodo, 
           plazo:12, // hallar el plzo en base a la fechas
           tasaDescuento: 22, // hallar la tasa de dsto en base al banco
+          interesDescontado, // hallar la tasa de dsto en base al banco
          }
          //tengo facturas y letra ya emitidas en un banco especifico
          
@@ -407,6 +461,7 @@ export class InvoiceService {
     this.portfoliosList.next(newArr); 
     
   }
+
   addClient(client:Client){
     arrClients.push(client);
     this.clientList.next(arrClients);

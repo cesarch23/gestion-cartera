@@ -179,7 +179,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChanges {
 
-  detailsColumns = ['id','editar','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido'
+  detailsColumns = ['id','editar','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido','interesDescontado'
                     ,'tcea','tipoTasa','fechaEmision','fechaDescuento','fechaVencimiento','banco']
 
   

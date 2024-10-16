@@ -22,10 +22,11 @@ export interface financialDocument {
     plazo:number; // duracion de la factura o letra
     periodo: "mensual" | "anual" | "diario"; // mensual, anual, quincenal, etc
     tasaDescuento:number;
+    interesDescontado:number;
 }
 export interface Bank{
     nombre: string;
-    tasaDescuentoRef:number;
+    tasaEfectivaAnual:number;// es la tasa efectiva anual
 
 }
 export interface BillForm {

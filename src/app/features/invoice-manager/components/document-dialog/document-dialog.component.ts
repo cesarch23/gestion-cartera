@@ -53,6 +53,8 @@ export class DocumentDialogComponent implements OnInit  {
     }
     const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, periodo }:BillForm = this.billForm.value;
     this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,periodo})
+    console.log(this.billForm)
+    console.log(fechaVencimiento)
     this.documentDialog.close();  
     if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
   }
