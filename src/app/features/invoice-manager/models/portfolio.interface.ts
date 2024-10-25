@@ -1,3 +1,6 @@
+type Period = "mensual" | "anual" | "diario";
+type TipoTasa = "nominal" | "efectiva";
+type Moneda =  "PEN" | "USD";
 
 export interface Client {
     nombre: string;
@@ -10,17 +13,17 @@ export interface financialDocument {
     cliente: Client;
     estado: string;
     tipo: string;
-    moneda: "PEN" | "USD";
+    moneda:Moneda;
     valorNominal: number;
     montoRecibido: number;
     tcea:number;
-    tipoTasa:"nominal" | "efectiva";
+    tipoTasa: TipoTasa;
     fechaEmision:Date;
     fechaDescuento:Date; // es el mismo que la de la cartera
     fechaVencimiento:Date;
     bancoEnviado: Bank;
     plazo:number; // duracion de la factura o letra
-    periodo: "mensual" | "anual" | "diario"; // mensual, anual, quincenal, etc
+    periodo: Period  // mensual, anual, quincenal, etc
     tasaDescuento:number;
     interesDescontado:number;
 }
@@ -31,16 +34,16 @@ export interface Bank{
 }
 export interface BillForm {
     valorNominal: number ;
-    tipoTasa: "nominal" | "efectiva";
+    tipoTasa: TipoTasa;
     fechaEmision: Date ;
     fechaVencimiento:Date ;
     cliente: Client ;
-    periodo: "mensual" | "anual" | "diario";
+    periodo: Period;
 }
 export interface Portfolio {
     id:number;
     nombre: string;
-    moneda: "PEN" | "USD";
+    moneda:Moneda;
     estado: string;
     fechaDescuento: Date; // es la fecha en la que generan las facturas y es unico
     // tipoTasa: string; // todas facturas letra tendran el mismo tipo de tasa???
@@ -50,7 +53,7 @@ export interface Portfolio {
   }
   export interface PortfolioForm{
     nombre:string;
-    moneda: "PEN" | "USD";
+    moneda:Moneda;
     fechaDescuento:Date;
     bancoEnviado: Bank
   }

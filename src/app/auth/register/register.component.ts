@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { registerForm, RequestStatus } from '../models/model.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -7,4 +11,36 @@ import { Component } from '@angular/core';
 })
 export class RegisterComponent {
 
+  requestStatus:RequestStatus = 'failed'
+  constructor(
+    private authService:AuthService,
+    private router:Router
+  ){}
+
+  registerForm:FormGroup = new FormGroup({
+    ruc: new FormControl<string | null>( null,[Validators.required, Validators.minLength(10)] ),
+    razonSocial: new FormControl<string | null>( null,[Validators.required]),
+    direccion: new FormControl<string | null>( null,[Validators.required]),
+    sector: new FormControl<string | null>( null,[Validators.required]),
+    password: new FormControl<string | null>( null,[Validators.required])
+
+  })
+
+
+  register(){
+    this.registerForm.markAllAsTouched();
+    if(this.registerForm.invalid) return;
+    
+    const { ruc,razonSocial, direccion, sector, password } = this.registerForm.value
+    this.authService.registerCompany({ruc,razon_social:razonSocial, direccion, sector, password})
+      .subscribe({
+        next:(resp)=>{
+          this.router.navigateByUrl("/app/portfolio")
+          console.log(resp)
+        },
+        error:(error)=>{
+          alert("error, vuelva a intentarlo")
+        }
+      })
+  }
 }

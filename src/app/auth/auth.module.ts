@@ -25,7 +25,8 @@ import { LayoutAuthComponent } from './layout-auth/layout-auth.component';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+     
    
     
   ]

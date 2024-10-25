@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const CUSTOM_FORMAT = {
@@ -31,6 +32,8 @@ const CUSTOM_FORMAT = {
     BrowserAnimationsModule,
     SharedModule,
     MatMomentDateModule,
+    HttpClientModule,
+    
 
    
   ],

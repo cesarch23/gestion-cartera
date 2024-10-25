@@ -4,26 +4,26 @@
             <h1>Registrarse</h1>
             <span>Por favor ingrese sus datos</span>
         </div>
-        <form action="#" class="form">
+        <form action="#" class="form" [formGroup]="registerForm" (ngSubmit)="register()" >
             <mat-form-field class="form__field" appearance="fill" color="primary">
                 <mat-label>RUC de la empresa</mat-label>
-                <input matInput type="text" placeholder="Ingrese el RUC de su empresa">
+                <input formControlName="ruc" matInput type="text" placeholder="Ingrese el RUC de su empresa">
             </mat-form-field>
             <mat-form-field class="form__field" appearance="fill" >
                 <mat-label>Razon social</mat-label>
-                <input matInput type="password" placeholder="Ingrese la razon social">
+                <input formControlName="razonSocial" matInput type="text" placeholder="Ingrese la razon social">
             </mat-form-field>
             <mat-form-field class="form__field" appearance="fill" >
                 <mat-label>Direccion de la sede principal</mat-label>
-                <input matInput type="password" placeholder="Ingrese la direccion legal">
+                <input formControlName = "direccion" matInput type="text" placeholder="Ingrese la direccion legal">
             </mat-form-field>
             <mat-form-field class="form__field" appearance="fill" >
                 <mat-label>Sector</mat-label>
-                <input matInput type="password" placeholder="Ingrese el sector al que pertenece">
+                <input formControlName="sector" matInput type="text" placeholder="Ingrese el sector al que pertenece">
             </mat-form-field>
             <mat-form-field class="form__field" appearance="fill" >
                 <mat-label>Constraseña</mat-label>
-                <input matInput type="password" placeholder="Ingrese su contraseña">
+                <input formControlName="password" matInput type="password" placeholder="Ingrese su contraseña">
             </mat-form-field>
             <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" >Registrarse</button>
             <div class="form__or">
