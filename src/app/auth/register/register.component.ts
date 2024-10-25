@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { registerForm, RequestStatus } from '../models/model.interface';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastComponent } from 'src/app/shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,8 @@ export class RegisterComponent {
   requestStatus:RequestStatus = 'failed'
   constructor(
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private toastRef:MatSnackBar
   ){}
 
   registerForm:FormGroup = new FormGroup({
@@ -34,12 +37,16 @@ export class RegisterComponent {
     const { ruc,razonSocial, direccion, sector, password } = this.registerForm.value
     this.authService.registerCompany({ruc,razon_social:razonSocial, direccion, sector, password})
       .subscribe({
-        next:(resp)=>{
+        next:()=>{
           this.router.navigateByUrl("/app/portfolio")
-          console.log(resp)
         },
         error:(error)=>{
-          alert("error, vuelva a intentarlo")
+          this.toastRef.openFromComponent(ToastComponent,{
+            data:{message:'Ocurrio un error en nuestro servidor, intentelo más tarde', type:'failed'},
+            duration:3000,
+            verticalPosition:'top',
+            horizontalPosition:'right'
+          })
         }
       })
   }
