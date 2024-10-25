@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { enviroment } from 'src/app/environments/environment';
-import { registerForm } from '../models/model.interface';
+import { registerForm, User } from '../models/model.interface';
 
 
 @Injectable({
@@ -18,6 +18,11 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
     return this.http.post( `${this.baseUrl}company`,company, {headers});
+  }
+
+  login(user:User){
+    const header = new HttpHeaders({ 'Content-Type': 'application/json' })
+    return this.http.get(`${this.baseUrl}company/${user.ruc}/${user.password}`,{headers: header})
   }
   
 

@@ -5,5 +5,8 @@ export interface registerForm{
     sector:string;
     password:string;
 }
-
+export interface User{
+    ruc:string;
+    password:string;
+}
 export type RequestStatus= 'init' | 'failed' | 'sucess' | 'loading'

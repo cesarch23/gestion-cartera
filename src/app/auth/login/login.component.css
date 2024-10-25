@@ -39,6 +39,12 @@
     background-color: #3566E7;
     margin-bottom:20px;
 }
+.form .form__submit.disabled{
+    cursor: not-allowed;
+}
+.form .form__submit.undisabled{
+    cursor: pointer;
+}
 .form__or{
     width: 100%;
     display: flex;
@@ -98,3 +104,25 @@
     }
     
 }
+
+
+/*** loader **/
+.loader {
+    width: 30px;
+    height: 30px;
+    border: 5px solid #FFF;
+    border-bottom-color: #97ff6c;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 

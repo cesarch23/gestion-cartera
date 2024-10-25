@@ -4,16 +4,19 @@
             <h1>Bienvenido</h1>
             <span>Por favor ingrese sus datos</span>
         </div>
-        <form action="#" class="form">
+        <form action="#" class="form" [formGroup]="loginForm" (ngSubmit)="login()" >
             <mat-form-field class="form__field" appearance="fill" color="primary">
                 <mat-label>RUC</mat-label>
-                <input matInput type="text" placeholder="Ingrese su RUC">
+                <input formControlName="ruc" matInput type="text" placeholder="Ingrese su RUC">
             </mat-form-field>
             <mat-form-field class="form__field" appearance="fill" >
                 <mat-label>Contraseña</mat-label>
-                <input matInput type="password" placeholder="Ingrese su contraseña">
+                <input formControlName="password" matInput type="password" placeholder="Ingrese su contraseña">
             </mat-form-field>
-            <button class="form__submit" mat-button mat-flat-button type="button" color="primary" (click)="submit()"  >Log in</button>
+            <button [disabled]="status==='loading'" class="form__submit" mat-button mat-flat-button type="submit" color="primary"  >
+                <span *ngIf="status!=='loading'" >Iniciar sesión</span> 
+                <span *ngIf="status==='loading'" class="loader"></span>
+            </button>
             <div class="form__or">
                 <hr> <span> O </span> <hr>
             </div>
