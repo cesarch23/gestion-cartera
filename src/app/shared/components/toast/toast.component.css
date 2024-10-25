@@ -1,0 +1,6 @@
+  .toast {
+    margin: 0;
+    display: flex;
+    background: linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113));
+    color: #fff
+  }

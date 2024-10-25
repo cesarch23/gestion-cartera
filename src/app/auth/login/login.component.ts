@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { RequestStatus } from '../models/model.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastComponent } from 'src/app/shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent {
   constructor(
     private router:Router,
     private authService: AuthService,
-
+    private toastRef:MatSnackBar
   ){}
   
 
@@ -23,6 +25,14 @@ export class LoginComponent {
     password: new FormControl < null | string > (null, [Validators.required])
   })
 
+  openToast(message:string,type:string){
+    this.toastRef.openFromComponent(ToastComponent,{
+      data:{ message, type },
+      duration:3000,
+      verticalPosition: 'top',
+      horizontalPosition:'right'
+     })
+  }
    
   login(){
     this.loginForm.markAllAsTouched();
@@ -32,14 +42,14 @@ export class LoginComponent {
     this.authService.login({ruc, password})
       .subscribe({
         next:(resp)=>{
-          if(resp) this.router.navigateByUrl('/app/portfolio')
-          if(!resp) alert("su contraseña o ruc es incorecta")
-          console.log({resp})
+
+          if(resp)  this.router.navigateByUrl('/app/portfolio')
+          if(!resp) this.openToast('Su RUC o contraseña son incorrectos, vuelva a revisarlos','failed')
           this.status = 'sucess'
         },
         error:(error)=>{
-          console.log({error})
           this.status = 'failed'
+          this.openToast('El usuario no existe','failed')
         },
         complete:()=>{
           this.status = 'init'

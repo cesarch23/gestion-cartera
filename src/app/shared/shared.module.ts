@@ -6,13 +6,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ToastComponent } from './components/toast/toast.component';
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ToastComponent
   ],
   imports: [
     CommonModule,
