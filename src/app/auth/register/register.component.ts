@@ -21,7 +21,7 @@ export class RegisterComponent {
   ){}
 
   registerForm:FormGroup = new FormGroup({
-    ruc: new FormControl<string | null>( null,[Validators.required, Validators.minLength(10)] ),
+    ruc: new FormControl<string | null>( null,[Validators.required, Validators.minLength(11)] ),
     razonSocial: new FormControl<string | null>( null,[Validators.required]),
     direccion: new FormControl<string | null>( null,[Validators.required]),
     sector: new FormControl<string | null>( null,[Validators.required]),

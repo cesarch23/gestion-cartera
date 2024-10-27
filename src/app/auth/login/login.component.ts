@@ -21,7 +21,7 @@ export class LoginComponent {
   
 
   loginForm: FormGroup = new FormGroup({
-    ruc: new FormControl<null | string>(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+    ruc: new FormControl<null | string>(null, [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
     password: new FormControl < null | string > (null, [Validators.required])
   })
 
@@ -42,10 +42,9 @@ export class LoginComponent {
     this.authService.login({ruc, password})
       .subscribe({
         next:(resp)=>{
-
           if(resp)  this.router.navigateByUrl('/app/portfolio')
           if(!resp) this.openToast('Su RUC o contraseña son incorrectos, vuelva a revisarlos','failed')
-          this.status = 'sucess'
+          //this.status = 'sucess'
         },
         error:(error)=>{
           this.status = 'failed'
