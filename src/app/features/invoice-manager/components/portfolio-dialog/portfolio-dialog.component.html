@@ -23,21 +23,6 @@
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <mat-form-field class="portfolioForm_field" >
-                <mat-label >Tipo de tasa</mat-label>
-                <mat-select id="tipoTasa" formControlName = "tipoTasa">
-                    <mat-option value="Nominal">Nominal</mat-option>
-                    <mat-option value="Efectiva">Efectiva</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="portfolioForm_field" >
-                <mat-label>Periodo</mat-label>
-                <mat-select id="periodo" formControlName="periodo">
-                    <mat-option value="Anual">Anual</mat-option>
-                    <mat-option value="Mensual">Mensual</mat-option>
-                    <mat-option value="Diario">Diario</mat-option>
-                </mat-select>
-            </mat-form-field>
             <mat-form-field>
                 <mat-label >Banco</mat-label>
                 <mat-select id="banco" formControlName="banco">

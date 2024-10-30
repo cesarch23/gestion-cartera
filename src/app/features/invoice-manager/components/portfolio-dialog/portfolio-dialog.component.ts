@@ -21,8 +21,6 @@ export class PortfolioDialogComponent {
     nombre: new FormControl('',[Validators.required]),
     moneda: new FormControl('',[Validators.required]),
     fechaDescuento:new FormControl('', [Validators.required]),
-    tipoTasa: new FormControl('', [Validators.required]),
-    periodo: new FormControl('', [Validators.required]),
     banco:new FormControl('', [Validators.required])
   });
 
