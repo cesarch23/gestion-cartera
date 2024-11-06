@@ -52,7 +52,7 @@
                             <input formControlName="direccion" matInput class="businessForm__input" type="text" placeholder="Ingrese su direccion legal">
                         </mat-form-field>
                         <div class="businessForm__actions">
-                            <button class="businessForm__reset" type="reset" mat-button mat-flat-button >Cancelar</button>
+                            <button class="businessForm__reset" type="reset" mat-button mat-flat-button mat-dialog-close >Cancelar</button>
                             <button [disabled]="isLoading" class="businessForm__submit" type="submit" mat-button mat-flat-button >
                                <span *ngIf="businessFormStatus==='init'"  > Agregar</span>
                                <div   *ngIf="businessFormStatus==='loading'" class="loader"></div>
