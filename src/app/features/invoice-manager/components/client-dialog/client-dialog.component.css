@@ -52,8 +52,10 @@
     }
 
 }
-
-
+.businessForm__actions .businessForm__submit:disabled{
+    cursor: not-allowed;
+}
+ 
 /*** loader **/
 .loader {
     width: 30px;

@@ -34,26 +34,29 @@
                     </form>
                 </mat-tab>
                 <mat-tab label="Empresa">
-                    <form action="#" class="businessForm">
+                    <form action="#" class="businessForm" [formGroup]="businessForm" (ngSubmit)="addBussiness()">
                         <mat-form-field class="businessForm_field" >
                             <mat-label>RUC</mat-label>
-                            <input  matInput class="businessForm__input" type="text" placeholder="Ingrese su RUC">
+                            <input  formControlName="ruc" matInput class="businessForm__input" type="text" placeholder="Ingrese su RUC" maxlength="11">
                         </mat-form-field>
                         <mat-form-field class="businessForm_field" >
                             <mat-label>Nombre comercial</mat-label>
-                            <input matInput class="businessForm__input" type="text" placeholder="Ingrese su nombre comercial">
+                            <input formControlName="nombreComercial" matInput class="businessForm__input" type="text" placeholder="Ingrese su nombre comercial">
                         </mat-form-field>
                         <mat-form-field class="businessForm_field" >
                             <mat-label>Razón social</mat-label>
-                            <input matInput class="businessForm__input" type="text" placeholder="Ingrese su razón social">
+                            <input formControlName="razonSocial" matInput class="businessForm__input" type="text" placeholder="Ingrese su razón social">
                         </mat-form-field>
                         <mat-form-field class="businessForm_field" >
                             <mat-label>Direccion legal</mat-label>
-                            <input matInput class="businessForm__input" type="text" placeholder="Ingrese su direccion legal">
+                            <input formControlName="direccion" matInput class="businessForm__input" type="text" placeholder="Ingrese su direccion legal">
                         </mat-form-field>
                         <div class="businessForm__actions">
                             <button class="businessForm__reset" type="reset" mat-button mat-flat-button >Cancelar</button>
-                            <button class="businessForm__submit" type="submit" mat-button mat-flat-button >Agregar</button>
+                            <button [disabled]="isLoading" class="businessForm__submit" type="submit" mat-button mat-flat-button >
+                               <span *ngIf="businessFormStatus==='init'"  > Agregar</span>
+                               <div   *ngIf="businessFormStatus==='loading'" class="loader"></div>
+                            </button>
                         </div>
                     </form>
                 </mat-tab>

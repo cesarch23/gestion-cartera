@@ -16,6 +16,8 @@ import { ToastComponent } from 'src/app/shared/components/toast/toast.component'
 })
 export class ClientDialogComponent {
   personFormStatus:RequestStatus = 'init';
+  businessFormStatus:RequestStatus = 'init';
+  isLoading:boolean = false;
   constructor(
     private invService:InvoiceService,
     private clientDialog:MatDialogRef<ClientDialogComponent>,
@@ -32,7 +34,7 @@ export class ClientDialogComponent {
   })
 
   businessForm:FormGroup = new FormGroup({
-    ruc: new FormControl<string>  ("",[Validators.required]),
+    ruc: new FormControl<string>  ("",[Validators.required,Validators.minLength(11), Validators.maxLength(11)]),
     nombreComercial: new FormControl<string>  ("",[Validators.required]),
     razonSocial: new FormControl<string>  ("",[Validators.required]),
     direccion: new FormControl<string>  ("",[Validators.required])
@@ -52,8 +54,24 @@ export class ClientDialogComponent {
         },
         error:()=>this.personFormStatus='failed',
         complete:()=> this.personFormStatus='init'
-      }      )
-    console.log("cliente envido", this.personForm)
+      })
+  }
+  addBussiness(){
+    this.businessForm.markAllAsTouched();
+    if(this.businessForm.invalid) return;
+    this.businessFormStatus='loading';
+    this.isLoading=true;
+    const { ruc, direccion,nombreComercial,razonSocial} =  this.businessForm.value
+    this.invService.addBusiness({ruc, direccion, nombreComercial, razonSocial})
+      .subscribe({
+        next:()=>{
+          this.clientDialog.close();
+          this.businessFormStatus='sucess'
+          this.openToast('La empresa fue creado exitosamente','success')
+        },
+        error:()=>this.isLoading=false,
+        complete:()=> this.businessFormStatus='init'
+      })
   }
 
   
