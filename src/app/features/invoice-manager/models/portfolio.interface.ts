@@ -1,11 +1,17 @@
 type Period = "mensual" | "anual" | "diario";
 type TipoTasa = "nominal" | "efectiva";
 type Moneda =  "PEN" | "USD";
-
+export interface Business {
+    id: number;
+    ruc:string;
+    nombreComercial: string;
+    razonSocial: string;
+    direccion: string;
+}
 export interface Client {
     nombre: string;
     apellidos: string;
-    dni: string;
+    ruc: string;
     direccion: string;
 }
 export interface financialDocument {

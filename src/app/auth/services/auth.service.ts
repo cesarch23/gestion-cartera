@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { enviroment } from 'src/app/environments/environment';
 import { registerForm, User } from '../models/model.interface';
+import { tap } from 'rxjs';
 
 
 @Injectable({
@@ -23,6 +24,20 @@ export class AuthService {
   login(user:User){
     const header = new HttpHeaders({ 'Content-Type': 'application/json' })
     return this.http.get(`${this.baseUrl}company/${user.ruc}/${user.password}`,{headers: header})
+              .pipe(tap(resp=>{
+                    if(resp === true) this.saveUser(user.ruc)
+                      console.log(resp)
+                  }))
+
+  }
+
+  saveUser(ruc:string){
+    localStorage.removeItem("ruc");
+    localStorage.setItem("ruc", ruc)
+  }
+
+  getUser(): string | null{
+    return localStorage.getItem("ruc")
   }
   
 

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Bank, BillForm, Client, Portfolio,PortfolioForm,financialDocument } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 import * as moment from 'moment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { enviroment } from 'src/app/environments/environment';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 // const arrPortfolio: Portfolio[] = [
@@ -46,7 +49,7 @@ let arrPortfolio: Portfolio[] = [
     documentos: [
       {
         id: 1,
-        cliente: { nombre: "Juan", apellidos: "Pérez", dni: "12345678", direccion: "Av. Siempre Viva 123" },
+        cliente: { nombre: "Juan", apellidos: "Pérez", ruc: "12345678", direccion: "Av. Siempre Viva 123" },
         estado: "pendiente de pago",
         tipo: "letra",
         moneda: "PEN",
@@ -65,7 +68,7 @@ let arrPortfolio: Portfolio[] = [
       },
       {
         id: 2,
-        cliente: { nombre: "María", apellidos: "Gómez", dni: "87654321", direccion: "Calle Falsa 456" },
+        cliente: { nombre: "María", apellidos: "Gómez", ruc: "87654321", direccion: "Calle Falsa 456" },
         estado: "pendiente de pago",
         tipo: "factura",
         moneda: "USD",
@@ -94,7 +97,7 @@ let arrPortfolio: Portfolio[] = [
     documentos: [
       {
         id: 3,
-        cliente: { nombre: "Luis", apellidos: "Ramírez", dni: "65432189", direccion: "Jr. Los Sauces 789" },
+        cliente: { nombre: "Luis", apellidos: "Ramírez", ruc: "65432189", direccion: "Jr. Los Sauces 789" },
         estado: "pendiente de pago",
         tipo: "letra",
         moneda: "PEN",
@@ -113,7 +116,7 @@ let arrPortfolio: Portfolio[] = [
       },
       {
         id: 4,
-        cliente: { nombre: "Ana", apellidos: "Sánchez", dni: "65498732", direccion: "Calle Principal 987" },
+        cliente: { nombre: "Ana", apellidos: "Sánchez", ruc: "65498732", direccion: "Calle Principal 987" },
         estado: "pendiente de pago",
         tipo: "factura",
         moneda: "USD",
@@ -142,7 +145,7 @@ let arrPortfolio: Portfolio[] = [
     documentos: [
       {
         id: 5,
-        cliente: { nombre: "Carlos", apellidos: "López", dni: "98765432", direccion: "Av. Los Álamos 234" },
+        cliente: { nombre: "Carlos", apellidos: "López", ruc: "98765432", direccion: "Av. Los Álamos 234" },
         estado: "pendiente de pago",
         tipo: "letra",
         moneda: "PEN",
@@ -161,7 +164,7 @@ let arrPortfolio: Portfolio[] = [
       },
       {
         id: 6,
-        cliente: { nombre: "Lucía", apellidos: "Fernández", dni: "43215678", direccion: "Jr. Primavera 654" },
+        cliente: { nombre: "Lucía", apellidos: "Fernández", ruc: "43215678", direccion: "Jr. Primavera 654" },
         estado: "pendiente de pago",
         tipo: "factura",
         moneda: "USD",
@@ -192,7 +195,7 @@ let arrPortfolio: Portfolio[] = [
     documentos: [
       {
         id: 7,
-        cliente: { nombre: "Miguel", apellidos: "Torres", dni: "34567890", direccion: "Av. Las Flores 123" },
+        cliente: { nombre: "Miguel", apellidos: "Torres", ruc: "34567890", direccion: "Av. Las Flores 123" },
         estado: "pendiente de pago",
         tipo: "letra",
         moneda: "PEN",
@@ -211,7 +214,7 @@ let arrPortfolio: Portfolio[] = [
       },
       {
         id: 8,
-        cliente: { nombre: "Diana", apellidos: "García", dni: "87654321", direccion: "Calle La Luna 654" },
+        cliente: { nombre: "Diana", apellidos: "García", ruc: "87654321", direccion: "Calle La Luna 654" },
         estado: "pendiente de pago",
         tipo: "factura",
         moneda: "USD",
@@ -242,7 +245,7 @@ let arrPortfolio: Portfolio[] = [
     documentos: [
       {
         id: 9,
-        cliente: { nombre: "Pedro", apellidos: "Cruz", dni: "12349876", direccion: "Jr. El Sol 876" },
+        cliente: { nombre: "Pedro", apellidos: "Cruz", ruc: "12349876", direccion: "Jr. El Sol 876" },
         estado: "pendiente de pago",
         tipo: "letra",
         moneda: "PEN",
@@ -261,7 +264,7 @@ let arrPortfolio: Portfolio[] = [
       },
       {
         id: 10,
-        cliente: { nombre: "Gabriela", apellidos: "Martínez", dni: "65478912", direccion: "Av. La Paz 432" },
+        cliente: { nombre: "Gabriela", apellidos: "Martínez", ruc: "65478912", direccion: "Av. La Paz 432" },
         estado: "pendiente de pago",
         tipo: "factura",
         moneda: "USD",
@@ -282,26 +285,10 @@ let arrPortfolio: Portfolio[] = [
   },
 ];
 const arrClients: Client[] = [
-  { nombre: 'Juan', apellidos: 'Pérez', dni: '12345678A', direccion: 'Calle Falsa 1' },
-  { nombre: 'Ana', apellidos: 'Gómez', dni: '87654321B', direccion: 'Avenida Siempre Viva 742' },
-  { nombre: 'Luis', apellidos: 'Martínez', dni: '23456789C', direccion: 'Plaza Mayor 456' },
-  { nombre: 'María', apellidos: 'López', dni: '34567890D', direccion: 'Paseo del Río 89' },
-  { nombre: 'Carlos', apellidos: 'Sánchez', dni: '45678901E', direccion: 'Camino de Santiago 12' },
-  { nombre: 'Laura', apellidos: 'Hernández', dni: '56789012F', direccion: 'Calle del Sol 34' },
-  { nombre: 'Fernando', apellidos: 'Ramírez', dni: '67890123G', direccion: 'Calle Luna 56' },
-  { nombre: 'Isabel', apellidos: 'Díaz', dni: '78901234H', direccion: 'Calle de la Paz 78' },
-  { nombre: 'Javier', apellidos: 'Torres', dni: '89012345I', direccion: 'Avenida del Libertador 90' },
-  { nombre: 'Patricia', apellidos: 'Flores', dni: '90123456J', direccion: 'Calle Nueva 11' },
-  { nombre: 'Pedro', apellidos: 'Martín', dni: '01234567K', direccion: 'Calle Real 22' },
-  { nombre: 'Elena', apellidos: 'Cruz', dni: '12345679L', direccion: 'Calle Verde 33' },
-  { nombre: 'Ricardo', apellidos: 'Reyes', dni: '23456780M', direccion: 'Avenida del Mar 44' },
-  { nombre: 'Sofía', apellidos: 'Mendoza', dni: '34567891N', direccion: 'Paseo de la Flora 55' },
-  { nombre: 'Diego', apellidos: 'Castro', dni: '45678902O', direccion: 'Calle de la Luna 66' },
-  { nombre: 'Gabriela', apellidos: 'Salas', dni: '56789013P', direccion: 'Plaza del Sol 77' },
-  { nombre: 'Andrés', apellidos: 'García', dni: '67890124Q', direccion: 'Calle de la Tierra 88' },
-  { nombre: 'Natalia', apellidos: 'Mora', dni: '78901235R', direccion: 'Avenida de los Árboles 99' },
-  { nombre: 'Víctor', apellidos: 'Pineda', dni: '89012346S', direccion: 'Calle del Viento 100' },
-  { nombre: 'Cecilia', apellidos: 'Vega', dni: '90123457T', direccion: 'Calle del Agua 200' },
+  { nombre: 'Juan', apellidos: 'Pérez', ruc: '12345678A', direccion: 'Calle Falsa 1' },
+  { nombre: 'Ana', apellidos: 'Gómez', ruc: '87654321B', direccion: 'Avenida Siempre Viva 742' },
+  { nombre: 'Luis', apellidos: 'Martínez', ruc: '23456789C', direccion: 'Plaza Mayor 456' },
+   
 ];
 
 let arrBank:Bank[]= [ 
@@ -314,6 +301,8 @@ let arrBank:Bank[]= [
   providedIn: 'root'
 })
 export class InvoiceService {
+
+  private BASE_URL = enviroment.BASE_URL
   private portfoliosList = new BehaviorSubject<Portfolio[]>(arrPortfolio);
 
   private clientList = new BehaviorSubject<Client[]>(arrClients);
@@ -323,6 +312,9 @@ export class InvoiceService {
   bankList$ = this.bankList.asObservable();
   
   constructor(
+    private http:HttpClient,
+    private authServ:AuthService,
+
   ) { }
   
 
@@ -462,10 +454,21 @@ export class InvoiceService {
     
   }
 
-  addClient(client:Client){
-    arrClients.push(client);
-    this.clientList.next(arrClients);
-
+  addPerson(person:{nombre:string; apellido:string;ruc:string;direccion:string}){
+    const { nombre, apellido, ruc, direccion } = person
+    const rucCompany = this.authServ.getUser();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json'})
+    const client = { 
+      ruc_company:rucCompany,
+      ruc,
+      direccion, 
+      nombre,
+      apellido, 
+      nombre_comercial:'',
+      razon_social:'',
+      rol:'persona'
+    }
+    return this.http.post(`${this.BASE_URL}client`,client, {headers})  
   }
 
 }
