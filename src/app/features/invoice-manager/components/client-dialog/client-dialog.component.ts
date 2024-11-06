@@ -18,6 +18,7 @@ export class ClientDialogComponent {
   personFormStatus:RequestStatus = 'init';
   businessFormStatus:RequestStatus = 'init';
   isLoading:boolean = false;
+  tabIsDisable:boolean = false;
   constructor(
     private invService:InvoiceService,
     private clientDialog:MatDialogRef<ClientDialogComponent>,
@@ -43,6 +44,7 @@ export class ClientDialogComponent {
   addPerson(){
     this.personForm.markAllAsTouched();
     if(this.personForm.invalid) return;
+    this.tabIsDisable=true;
     this.personFormStatus='loading';
     const { ruc, nombre,apellidos:apellido,direccion } =  this.personForm.value
     this.invService.addPerson({ruc, nombre, apellido, direccion})
@@ -53,12 +55,17 @@ export class ClientDialogComponent {
           this.openToast('El cliente fue creado exitosamente','success')
         },
         error:()=>this.personFormStatus='failed',
-        complete:()=> this.personFormStatus='init'
+        complete:()=> {
+          this.personFormStatus='init'
+          this.tabIsDisable=false;
+        }
+
       })
   }
   addBussiness(){
     this.businessForm.markAllAsTouched();
     if(this.businessForm.invalid) return;
+    this.tabIsDisable = true;
     this.businessFormStatus='loading';
     this.isLoading=true;
     const { ruc, direccion,nombreComercial,razonSocial} =  this.businessForm.value
@@ -70,7 +77,10 @@ export class ClientDialogComponent {
           this.openToast('La empresa fue creado exitosamente','success')
         },
         error:()=>this.isLoading=false,
-        complete:()=> this.businessFormStatus='init'
+        complete:()=> {
+          this.businessFormStatus='init'
+          this.tabIsDisable = true;
+        }
       })
   }
 

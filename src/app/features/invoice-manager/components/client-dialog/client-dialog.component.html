@@ -6,7 +6,7 @@
     </div>
     <div class="dialog__content">
         <mat-tab-group class="dialog__tap-group" dynamicHeight>
-                <mat-tab label="Persona natural"> 
+                <mat-tab [disabled]="tabIsDisable" label="Persona natural"> 
                     <form action="#" class="customerForm" [formGroup]="personForm" (ngSubmit)="addPerson()" >
                         <mat-form-field class="customerForm_field" >
                             <mat-label>RUC</mat-label>
@@ -33,7 +33,7 @@
                         </div>
                     </form>
                 </mat-tab>
-                <mat-tab label="Empresa">
+                <mat-tab [disabled]="tabIsDisable" label="Empresa">
                     <form action="#" class="businessForm" [formGroup]="businessForm" (ngSubmit)="addBussiness()">
                         <mat-form-field class="businessForm_field" >
                             <mat-label>RUC</mat-label>
