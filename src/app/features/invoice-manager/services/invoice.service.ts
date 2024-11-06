@@ -471,18 +471,6 @@ export class InvoiceService {
     return this.http.post(`${this.BASE_URL}client`,client, {headers})  
   }
   addBusiness(business:{ruc:string; direccion:string;nombreComercial:string;razonSocial:string}){
-    /**
-     * {
-
-  "ruc": "string",
-  "direccion": "string",
-  
-  "nombre_comercial": "string",
-  "razon_social": "string",
-  "rol": "string"
-}
-     */
-
     const { ruc, direccion, nombreComercial: nombre_comercial, razonSocial: razon_social} = business
     const rucCompany = this.authServ.getUser();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json'})
