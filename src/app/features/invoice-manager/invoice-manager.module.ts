@@ -24,6 +24,7 @@ import { PortfolioDialogComponent } from './components/portfolio-dialog/portfoli
 import { MatSelectModule } from '@angular/material/select';
 import { DocumentDialogComponent } from './components/document-dialog/document-dialog.component';
 import { BankPageComponent } from './pages/bank-page/bank-page.component';
+import { BankDialogComponent } from './components/bank-dialog/bank-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BankPageComponent } from './pages/bank-page/bank-page.component';
     PortfolioDialogComponent,
     DocumentDialogComponent,
     BankPageComponent,
+    BankDialogComponent,
   ],
   imports: [
     CommonModule,

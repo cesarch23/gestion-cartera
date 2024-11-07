@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Bank } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { BankDialogComponent } from '../../components/bank-dialog/bank-dialog.component';
 
 @Component({
   selector: 'app-bank-page',
@@ -16,6 +18,7 @@ export class BankPageComponent implements OnInit, AfterViewInit {
   
   constructor(
     private invService:InvoiceService,
+    private bankDialog: MatDialog
 
   ){}
   
@@ -32,6 +35,8 @@ export class BankPageComponent implements OnInit, AfterViewInit {
   
   openBankForm(){
 
-
+    this.bankDialog.open(BankDialogComponent,{
+       maxWidth:527
+    })
   }
 }
