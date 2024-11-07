@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ClientDialogComponent } from '../../components/client-dialog/client-dialog.component';
 import { Client } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
+import { RequestStatus } from 'src/app/auth/models/model.interface';
 
 
 
@@ -20,6 +21,8 @@ export class CustomerPageComponent implements AfterViewInit, OnInit {
   
   businessColumns: string[] = ['ruc', 'comercial', 'social', 'direccion'];
   dataBusiness = new MatTableDataSource<Client>([]);
+  dataBusinessStatus:RequestStatus= 'init'
+  dataCustomerStatus:RequestStatus= 'init'
 
 
   constructor(
@@ -33,8 +36,16 @@ export class CustomerPageComponent implements AfterViewInit, OnInit {
     this.invService.businessList$.subscribe(businessArr=> this.dataBusiness.data = businessArr)
     this.invService.clientList$.subscribe(clientArr=> this.dataCustomer.data = clientArr)
     
-    this.invService.getClients('persona').subscribe()
-    this.invService.getClients('empresa').subscribe();
+    this.dataBusinessStatus = 'loading';
+    this.dataCustomerStatus = 'loading'
+    this.invService.getClients('persona').subscribe({
+      next:()=> this.dataBusinessStatus = 'sucess',
+      error:()=> this.dataBusinessStatus = 'failed'
+    })
+    this.invService.getClients('empresa').subscribe({
+      next:()=>this.dataCustomerStatus = 'sucess',
+      error:()=>this.dataCustomerStatus = 'failed',
+    });
 
   }
 
