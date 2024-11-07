@@ -4,6 +4,7 @@ import { LayoutInvoiceManagerComponent } from './layout-invoice-manager/layout-i
 import { PorfolioPageComponent } from './pages/porfolio-page/porfolio-page.component';
 import { CustomerPageComponent } from './pages/customer-page/customer-page.component';
 import { PortfolioDetailsComponent } from './pages/portfolio-details/portfolio-details.component';
+import { BankPageComponent } from './pages/bank-page/bank-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path:'customer',
         component:CustomerPageComponent
+      },
+      {
+        path:'bank',
+        component:BankPageComponent
       },
       {
         path:'**',

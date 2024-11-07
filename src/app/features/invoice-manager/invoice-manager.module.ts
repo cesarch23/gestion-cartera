@@ -23,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PortfolioDialogComponent } from './components/portfolio-dialog/portfolio-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { DocumentDialogComponent } from './components/document-dialog/document-dialog.component';
+import { BankPageComponent } from './pages/bank-page/bank-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DocumentDialogComponent } from './components/document-dialog/document-d
     PortfolioDetailsComponent,
     PortfolioDialogComponent,
     DocumentDialogComponent,
+    BankPageComponent,
   ],
   imports: [
     CommonModule,
