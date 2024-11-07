@@ -388,5 +388,10 @@ export class InvoiceService {
       .pipe(tap(banks=> this.bankList.next(banks)))
 
   }
+  addBank(bank:Bank){
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.post(`${this.BASE_URL}bank`,{nombre: bank.nombre},{headers})
+      .pipe( tap(()=> this.getBanks().subscribe() ))
+  }
   
 }

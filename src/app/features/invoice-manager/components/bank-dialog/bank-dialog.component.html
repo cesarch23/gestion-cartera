@@ -1,1 +1,18 @@
-<p>bank-dialog works!</p>
+<div class="dialog">
+    <div class="dialog__header">
+        <h2>Crear Banco</h2>
+
+    </div>
+    <div class="dialog__content">
+        <form action="#" class="portfolioForm" [formGroup]="bankForm" (ngSubmit)="addBank()" >
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label>Nombre del banco</mat-label>
+                <input id="nombre" formControlName="name" matInput class="portfolioForm__input" type="text" placeholder="Ingrese el nombre del banco">
+            </mat-form-field>
+            <div class="portfolioForm__actions">
+                <button class="portfolioForm__reset" type="reset" mat-button mat-flat-button mat-dialog-close >Cancelar</button>
+                <button class="portfolioForm__submit" type="submit" mat-button mat-flat-button>Agregar</button>
+            </div>
+        </form>
+    </div>
+</div>
