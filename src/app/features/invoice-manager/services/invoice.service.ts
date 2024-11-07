@@ -292,12 +292,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
    
 // ];
 
-let arrBank:Bank[]= [ 
-  {nombre:'interbank', tasaEfectivaAnual:0.12},
-  {nombre:'BCP', tasaEfectivaAnual:0.12},
-  {nombre:'Banco de la nacion', tasaEfectivaAnual:0.12},
-  {nombre:'BBVA', tasaEfectivaAnual:0.12},
-]
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -312,7 +307,7 @@ export class InvoiceService {
   private businessList = new BehaviorSubject<Client[]>([]); 
   businessList$ = this.businessList.asObservable();
 
-  private bankList = new BehaviorSubject<Bank[]>(arrBank);
+  private bankList = new BehaviorSubject<Bank[]>([]);
   bankList$ = this.bankList.asObservable();
   
   constructor(
@@ -385,6 +380,12 @@ export class InvoiceService {
                         if(rol==='persona')  this.clientList.next(resp)
                         if(rol=== 'empresa') this.businessList.next(resp)
                     }))
+
+  }
+  getBanks(){
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.get<Bank[]>(`${this.BASE_URL}banks`,{headers})
+      .pipe(tap(banks=> this.bankList.next(banks)))
 
   }
   

@@ -54,8 +54,8 @@ export interface financialDocument {
     interesDescontado:number;
 }
 export interface Bank{
+    id:number;
     nombre: string;
-    tasaEfectivaAnual:number;// es la tasa efectiva anual
 
 }
 export interface BillForm {
