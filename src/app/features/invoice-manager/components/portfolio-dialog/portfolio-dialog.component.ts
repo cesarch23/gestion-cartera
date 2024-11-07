@@ -21,10 +21,16 @@ export class PortfolioDialogComponent {
     nombre: new FormControl('',[Validators.required]),
     moneda: new FormControl('',[Validators.required]),
     fechaDescuento:new FormControl('', [Validators.required]),
-    banco:new FormControl('', [Validators.required])
+    banco:new FormControl('', [Validators.required]),
+    tipoTasa:new FormControl<string | null>(null,[Validators.required]),
+    periodo:new FormControl<string | null>(null,[Validators.required]),
+    capitalizacion:new FormControl<number | null>(null,[]),
+    tasa:new FormControl < number | null>(null,[Validators.required] )
   });
 
   addPortfolio(){
+    console.log(this.portfolioForm)
+    console.log(this.portfolioForm.value.tipoTasa)
     if(this.portfolioForm.invalid)
       {
         this.portfolioForm.markAllAsTouched;

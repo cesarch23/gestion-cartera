@@ -33,6 +33,36 @@
                     <mat-option value="BBVA">BBVA</mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field class="portfolioForm_field" >
+                <mat-label >Tipo de tasa</mat-label>
+                <mat-select id="tipoTasa" formControlName = "tipoTasa">
+                    <mat-option value="nominal">Nominal</mat-option>
+                    <mat-option value="efectiva">Efectiva</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="this.portfolioForm.value.tipoTasa==='nominal'" class="portfolioForm_field" >
+                <mat-label >Capitalizacion</mat-label>
+                <mat-select id="capitalizacion" formControlName = "capitalizacion">
+                    <mat-option value="diaria">Diaria</mat-option>
+                    <mat-option value="mensual">Mensual</mat-option>
+                    <mat-option value="anual">Anual</mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="row">
+                <mat-form-field class="portfolioForm_field" >
+                    <mat-label>Periodo</mat-label>
+                    <mat-select id="periodo" formControlName="periodo">
+                        <mat-option value="anual">Anual</mat-option>
+                        <mat-option value="mensual">Mensual</mat-option>
+                        <mat-option value="diario">Diario</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="portfolioForm_field" >
+                    <mat-label>Tasa</mat-label>
+                    <input id="tasa" formControlName="tasa" matInput class="portfolioForm__input" type="number" placeholder="Ingrese la tasa 0.12">
+                </mat-form-field>
+            </div>
             <div class="portfolioForm__actions">
                 <button class="portfolioForm__reset" type="reset" mat-button mat-flat-button mat-dialog-close >Cancelar</button>
                 <button class="portfolioForm__submit" type="submit" mat-button mat-flat-button>Agregar</button>
