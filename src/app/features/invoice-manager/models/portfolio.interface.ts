@@ -1,6 +1,7 @@
 type Period = "mensual" | "anual" | "diario";
 type TipoTasa = "nominal" | "efectiva";
 type Moneda =  "PEN" | "USD";
+export type Rol= 'persona' | 'empresa'
 export interface Business {
     id: number;
     ruc:string;
@@ -8,11 +9,30 @@ export interface Business {
     razonSocial: string;
     direccion: string;
 }
+/**
+ {
+    "direccion": "persuasdf",
+    "id": 4,
+    "apellido": "felixxx",
+    "razon_social": "string",
+    "ruc": "12345678903",
+    "nombre": "felix",
+    "ruc_company": "12345678901",
+    "nombre_comercial": "string",
+    "rol": "persona"
+  }  
+
+ */
 export interface Client {
-    nombre: string;
+    id:number;
+    direccion:string,
     apellidos: string;
+    razon_social:string;
     ruc: string;
-    direccion: string;
+    nombre: string;
+    ruc_company:string;
+    nombre_comercial:String;
+    rol: Rol;
 }
 export interface financialDocument {
     id:number;

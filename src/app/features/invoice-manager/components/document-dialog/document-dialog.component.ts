@@ -47,32 +47,32 @@ export class DocumentDialogComponent implements OnInit  {
   }
 
   addBill(){
-    if(this.billForm.invalid){
-      this.billForm.markAllAsTouched()
-      return;
-    }
-    const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, periodo }:BillForm = this.billForm.value;
-    this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,periodo})
-    console.log(this.billForm)
-    console.log(fechaVencimiento)
-    this.documentDialog.close();  
-    if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
+    // if(this.billForm.invalid){
+    //   this.billForm.markAllAsTouched()
+    //   return;
+    // }
+    // const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, periodo }:BillForm = this.billForm.value;
+    // this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,periodo})
+    // console.log(this.billForm)
+    // console.log(fechaVencimiento)
+    // this.documentDialog.close();  
+    // if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
   }
   addPromissory(){
-    if(this.promissoryForm.invalid){
-      this.promissoryForm.markAllAsTouched()
-      return;
-    }
-    const {
-      valorNominal, 
-      tipoTasa,
-      fechaEmision,
-      fechaVencimiento,
-      cliente,
-      periodo
-    }: BillForm = this.promissoryForm.value;
-    this.invoiceServ.addPromissoryToPortfolio(this.data.id, {valorNominal, tipoTasa,fechaEmision, fechaVencimiento, cliente, periodo})
-    this.documentDialog.close();
-    if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`)
+    // if(this.promissoryForm.invalid){
+    //   this.promissoryForm.markAllAsTouched()
+    //   return;
+    // }
+    // const {
+    //   valorNominal, 
+    //   tipoTasa,
+    //   fechaEmision,
+    //   fechaVencimiento,
+    //   cliente,
+    //   periodo
+    // }: BillForm = this.promissoryForm.value;
+    // this.invoiceServ.addPromissoryToPortfolio(this.data.id, {valorNominal, tipoTasa,fechaEmision, fechaVencimiento, cliente, periodo})
+    // this.documentDialog.close();
+    // if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`)
   }
 }

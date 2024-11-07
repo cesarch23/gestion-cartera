@@ -209,7 +209,7 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
     
     this.invoiceServ.portfolios.subscribe(resp=>{
       this.portfolios=resp
-      this.documents.data = this.invoiceServ.getDetailsById(this.portfolioId).documentos
+      // this.documents.data = this.invoiceServ.getDetailsById(this.portfolioId).documentos
   
     })    
          
