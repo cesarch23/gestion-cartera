@@ -13,7 +13,12 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class InvoiceService {
 
   private BASE_URL = enviroment.BASE_URL
-  private portfoliosList = new BehaviorSubject<Portfolio[]>([]);
+
+  private clientAll = new BehaviorSubject<Client[]>([])
+  clientAll$ = this.clientAll.asObservable()
+
+  private portfolios= new BehaviorSubject<Portfolio[]>([]);
+  portfolios$ = this.portfolios.asObservable();
 
   private clientList = new BehaviorSubject<Client[]>([]);
   clientList$ =  this.clientList.asObservable();
@@ -33,9 +38,7 @@ export class InvoiceService {
      
   }
 
-  get portfolios(): Observable<Portfolio[]>{
-    return this.portfoliosList.asObservable();
-  }
+  
   addPortfolio({nombre, moneda, fechaDescuento, bancoEnviado}:PortfolioForm){
     const estado = 'pendiente';
     // const id=arrPortfolio.length+1;
@@ -106,6 +109,18 @@ export class InvoiceService {
     const headers = new HttpHeaders({'Content-Type':'application/json'})
     return this.http.post(`${this.BASE_URL}bank`,{nombre: bank.nombre},{headers})
       .pipe( tap(()=> this.getBanks().subscribe() ))
+  }
+  getPortfolio(){
+    const ruc = this.authServ.getUser();
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.get<Portfolio[]>(`${this.BASE_URL}walletr/${ruc}`,{headers})
+      .pipe( tap( resp => this.portfolios.next(resp) ))
+  }
+  getAllClients(){
+    const headers = new HttpHeaders ({'Content-Type':'application/json'})
+    const ruc = this.authServ.getUser()
+    return this.http.get<Client[]>(`${this.BASE_URL}client/${ruc}`,{headers})
+      .pipe(tap(resp=>this.clientAll.next(resp)))
   }
   
 }

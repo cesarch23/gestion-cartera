@@ -41,8 +41,10 @@ export class DocumentDialogComponent implements OnInit  {
   })
 
   ngOnInit(): void {
-    this.invoiceServ.clientList$.subscribe(resp=> this.clients = resp);
-    this.invoiceServ.bankList$.subscribe(resp=>this.banks=resp);
+    this.invoiceServ.clientAll$.subscribe(resp=> this.clients = resp);
+    this.invoiceServ.getAllClients().subscribe();
+    
+    // this.invoiceServ.bankList$.subscribe(resp=>this.banks=resp);
 
   }
 

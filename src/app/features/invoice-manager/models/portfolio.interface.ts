@@ -9,24 +9,11 @@ export interface Business {
     razonSocial: string;
     direccion: string;
 }
-/**
- {
-    "direccion": "persuasdf",
-    "id": 4,
-    "apellido": "felixxx",
-    "razon_social": "string",
-    "ruc": "12345678903",
-    "nombre": "felix",
-    "ruc_company": "12345678901",
-    "nombre_comercial": "string",
-    "rol": "persona"
-  }  
 
- */
 export interface Client {
     id:number;
     direccion:string,
-    apellidos: string;
+    apellido: string;
     razon_social:string;
     ruc: string;
     nombre: string;
@@ -66,16 +53,24 @@ export interface BillForm {
     cliente: Client ;
     periodo: Period;
 }
+
 export interface Portfolio {
     id:number;
     nombre: string;
-    moneda:Moneda;
+    tipo_moneda:Moneda;
     estado: string;
-    fechaDescuento: Date; // es la fecha en la que generan las facturas y es unico
-    // tipoTasa: string; // todas facturas letra tendran el mismo tipo de tasa???
-    // periodo: string;
-    bancoEnviado:Bank; // es el banco al que fueron enviados estas facturas o letras todas estan en un mismo banco dentro de una cartera
-    documentos:financialDocument[]
+    fecha_descuento: Date; // es la fecha en la que generan las facturas y es unico
+    tipo_tasa: string; // todas facturas letra tendran el mismo tipo de tasa???
+    tasa:number;
+    ruc_user:string;
+    capitalizacion:string;
+    periodo: string;
+    tcea:number;
+    banco:string;
+
+    id_banco:number;
+    //bancoEnviado:Bank; // es el banco al que fueron enviados estas facturas o letras todas estan en un mismo banco dentro de una cartera
+    //documentos:financialDocument[]
   }
   export interface PortfolioForm{
     nombre:string;

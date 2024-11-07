@@ -207,7 +207,7 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   ngOnInit(): void {
     this.portfolioId = parseInt(this.route.snapshot.paramMap.get('id') || "0");
     
-    this.invoiceServ.portfolios.subscribe(resp=>{
+    this.invoiceServ.portfolios$.subscribe(resp=>{
       this.portfolios=resp
       // this.documents.data = this.invoiceServ.getDetailsById(this.portfolioId).documentos
   

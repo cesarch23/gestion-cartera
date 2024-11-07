@@ -28,9 +28,8 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   
   ngOnInit(): void {
-    this.invoiceServ.portfolios.subscribe(values => {
-      this.dataSource.data=values;
-    });
+    this.invoiceServ.portfolios$.subscribe(portfolios => this.dataSource.data = portfolios)
+    this.invoiceServ.getPortfolio().subscribe();
     
   }
 
@@ -45,7 +44,8 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
       maxWidth:527
     })
   }
-  openDocumentForm(id:string){
+  openDocumentForm(id:number){
+    console.log(id)
     this.dialog.open(DocumentDialogComponent,{
       data:{id, navigate: true},
       maxWidth:608
