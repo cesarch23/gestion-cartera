@@ -39,6 +39,8 @@ export class AuthService {
   getUser(): string | null{
     return localStorage.getItem("ruc")
   }
-  
+  logout(){
+    localStorage.removeItem("ruc");
+  }
 
 }
