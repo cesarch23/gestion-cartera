@@ -66,10 +66,9 @@ export interface Portfolio {
     capitalizacion:string;
     periodo: string;
     tcea:number;
-    banco:string;
+    nombre_banco:string;
 
     id_banco:number;
-    //bancoEnviado:Bank; // es el banco al que fueron enviados estas facturas o letras todas estan en un mismo banco dentro de una cartera
     //documentos:financialDocument[]
   }
   export interface PortfolioForm{

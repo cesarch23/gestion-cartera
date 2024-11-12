@@ -72,25 +72,6 @@
                             <mat-label>Valor nominal</mat-label>
                             <input formControlName="valorNominal" matInput class="billForm__input" type="number" placeholder="Ingrese el valor nominal">
                         </mat-form-field>
-                        
-                        <div class="row">
-                            <mat-form-field class="portfolioForm_field" >
-                                <mat-label >Tipo de tasa</mat-label>
-                                <mat-select id="tipoTasa" formControlName = "tipoTasa">
-                                    <mat-option value="nominal">Nominal</mat-option>
-                                    <mat-option value="efectiva">Efectiva</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field class="portfolioForm_field" >
-                                <mat-label>Periodo</mat-label>
-                                <mat-select id="periodo" formControlName="periodo">
-                                    <mat-option value="anual">Anual</mat-option>
-                                    <mat-option value="mensual">Mensual</mat-option>
-                                    <mat-option value="diario">Diario</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-
                         <mat-form-field class="billForm__field" >
                             <mat-label>Fecha de emision</mat-label>
                             <input formControlName="fechaEmision" matInput [matDatepicker]="fechaEmi" placeholder="seleccione una fecha">

@@ -24,8 +24,8 @@ export class DocumentDialogComponent implements OnInit  {
   ){}
   billForm:FormGroup = new FormGroup({
     valorNominal:new FormControl<number | null>(null,[Validators.required, Validators.min(0)]),
-    tipoTasa:new FormControl<string | null>(null,[Validators.required]),
-    periodo:new FormControl<string | null>(null,[Validators.required]),
+    //tipoTasa:new FormControl<string | null>(null,[Validators.required]),
+    //periodo:new FormControl<string | null>(null,[Validators.required]),
     fechaEmision:new FormControl<Date | null>(null,[Validators.required]),
     fechaVencimiento:new FormControl<Date | null>(null,[Validators.required]),
     cliente:new FormControl<Client | null>(null,[Validators.required])
@@ -33,8 +33,6 @@ export class DocumentDialogComponent implements OnInit  {
 
   promissoryForm:FormGroup = new FormGroup({
     valorNominal:new FormControl<number | null>(null,[Validators.required, Validators.min(0)]),
-    tipoTasa:new FormControl<string | null>(null,[Validators.required]),
-    periodo:new FormControl<string | null>(null,[Validators.required]),
     fechaEmision:new FormControl<Date | null>(null,[Validators.required]),
     fechaVencimiento:new FormControl<Date | null>(null,[Validators.required]),
     cliente:new FormControl<Client | null>(null,[Validators.required])
