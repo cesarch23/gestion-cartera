@@ -38,6 +38,7 @@ export class RegisterComponent {
     this.authService.registerCompany({ruc,razon_social:razonSocial, direccion, sector, password})
       .subscribe({
         next:()=>{
+          this.authService.saveUser(ruc);
           this.router.navigateByUrl("/app/portfolio")
         },
         error:(error)=>{
