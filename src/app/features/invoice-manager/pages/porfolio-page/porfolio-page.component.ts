@@ -7,6 +7,7 @@ import { InvoiceService } from '../../services/invoice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PortfolioDialogComponent } from '../../components/portfolio-dialog/portfolio-dialog.component';
 import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
+import { RequestStatus } from 'src/app/auth/models/model.interface';
 
 
 
@@ -18,6 +19,7 @@ import { DocumentDialogComponent } from '../../components/document-dialog/docume
 export class PorfolioPageComponent implements AfterViewInit, OnInit{
   displayedColumns: string[] = ['nombre', 'banco', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Portfolio>([]);
+  dataSourceStatus: RequestStatus = 'init';
 
   constructor(
     private router:Router,
@@ -28,8 +30,12 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   
   ngOnInit(): void {
+    this.dataSourceStatus='loading';
     this.invoiceServ.portfolios$.subscribe(portfolios => this.dataSource.data = portfolios)
-    this.invoiceServ.getPortfolio().subscribe();
+    this.invoiceServ.getPortfolio().subscribe({
+      next:()=>this.dataSourceStatus='sucess',
+      error:()=>this.dataSourceStatus='failed'
+    });
     
   }
 

@@ -7,7 +7,7 @@
     </div>
     <div class="portfolio__table">
        
-        <table mat-table [dataSource]="dataSource">
+        <table *ngIf="this.dataSourceStatus==='sucess'"  mat-table [dataSource]="dataSource">
           
               <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef class="sticky"> Nombre</th>
@@ -43,7 +43,12 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-          
+        <div  *ngIf="this.dataSourceStatus==='loading'" class="loader-container">
+          <div class="loader"></div> 
+        </div>  
+        <div  *ngIf="this.dataSourceStatus==='failed'" class="error-loading">
+          <p>Se produjo un error al cargar los datos. Por favor, intenta recargar la página.</p>
+        </div> 
          <mat-paginator  #MatPaginator [pageSizeOptions]="[5, 10, 20]"
                            showFirstLastButtons
                            aria-label="Select page of clients ">
