@@ -26,11 +26,10 @@
             <mat-form-field>
                 <mat-label >Banco</mat-label>
                 <mat-select id="banco" formControlName="banco">
-                    <mat-option value="BCP">BCP</mat-option>
-                    <mat-option value="Interbank">Interbank</mat-option>
-                    <mat-option value="Scotiabank">Scotiabank</mat-option>
-                    <mat-option value="BN">Banco de la nación</mat-option>
-                    <mat-option value="BBVA">BBVA</mat-option>
+                    <mat-option *ngIf="bankList.length<=0" value="">Cargando...</mat-option>
+                    <ng-container *ngIf="bankList.length>0">
+                        <mat-option *ngFor="let bank of bankList" [value]="bank">{{bank.nombre}}</mat-option>
+                    </ng-container>
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="portfolioForm_field" >
@@ -65,7 +64,11 @@
             </div>
             <div class="portfolioForm__actions">
                 <button class="portfolioForm__reset" type="reset" mat-button mat-flat-button mat-dialog-close >Cancelar</button>
-                <button class="portfolioForm__submit" type="submit" mat-button mat-flat-button>Agregar</button>
+                <button  [disabled]="portfolioFormStatus === 'loading'" class="portfolioForm__submit" type="submit" mat-button mat-flat-button>
+                    <span *ngIf="portfolioFormStatus === 'init'"> Agregar</span>
+                    <span *ngIf="portfolioFormStatus === 'loading'">Cargando...</span>
+                </button>
+                
             </div>
         </form>
     </div>

@@ -39,14 +39,39 @@ export class InvoiceService {
   }
 
   
-  addPortfolio({nombre, moneda, fechaDescuento, bancoEnviado}:PortfolioForm){
+  addPortfolio({nombre, moneda, fechaDescuento,banco,tipoTasa,periodo,tasa,capitalizacion}:PortfolioForm){
     const estado = 'pendiente';
-    // const id=arrPortfolio.length+1;
-    // // const portfolio:Portfolio = {id,nombre,moneda,estado, bancoEnviado, tipoTasa,periodo, fechaDescuento,documentos:[]}
-    // const portfolio:Portfolio = {id,nombre,moneda,estado, bancoEnviado, fechaDescuento,documentos:[]}
-    // arrPortfolio.unshift(portfolio);
-    // this.portfoliosList.next(arrPortfolio);
-
+    const ruc = this.authServ.getUser();
+    const date = moment(fechaDescuento).format('DD/MM/YYYY');
+    /**
+     *   "nombre": "string",
+  "tipo_moneda": "string",
+  "fecha_descuento": "string",
+  "id_banco": 0,
+  "estado": "pendiente",
+  "tcea": 0,
+  "tipo_tasa": "string",
+  "periodo": "string",
+  "tasa": 0,
+  "capitalizacion": "diaria",
+  "ruc_user": "string"
+     */
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    const portfolio = {
+      nombre,
+      tipo_moneda: moneda, 
+      fecha_descuento: date,
+      id_banco:banco.id,
+      estado,
+      tcea:0,
+      tipo_tasa:tipoTasa,
+      periodo,
+      tasa,
+      capitalizacion,
+      ruc_user: ruc
+    };
+    return this.http.post(`${this.BASE_URL}wallet`,portfolio,{headers})
+      .pipe(tap(()=> this.getPortfolio().subscribe()))
   }
 
 

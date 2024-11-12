@@ -76,5 +76,9 @@ export interface Portfolio {
     nombre:string;
     moneda:Moneda;
     fechaDescuento:Date;
-    bancoEnviado: Bank
+    banco: Bank
+    tipoTasa:TipoTasa;
+    periodo:Period;
+    tasa:number;
+    capitalizacion:string;
   }
