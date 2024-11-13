@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild }
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Portfolio, financialDocument } from '../../models/portfolio.interface';
+import { Portfolio, FinancialDocument } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
@@ -184,7 +184,7 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
 
   
   portfolios:Portfolio[]=[];
-  documents = new MatTableDataSource<financialDocument>([]);
+  documents = new MatTableDataSource<FinancialDocument>([]);
   //documents:any=[];// debe ser de tipo financialDocument
   private portfolioId:number=0;
   

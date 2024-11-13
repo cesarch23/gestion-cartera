@@ -50,10 +50,10 @@ export class PorfolioPageComponent implements AfterViewInit, OnInit{
       maxWidth:527
     })
   }
-  openDocumentForm(id:number){
-    console.log(id)
+  openDocumentForm(portfolio:Portfolio){
+    console.log(portfolio)
     this.dialog.open(DocumentDialogComponent,{
-      data:{id, navigate: true},
+      data:{portfolio, navigate: true},
       maxWidth:608
     })
 

@@ -1,7 +1,7 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Bank, BillForm, Client } from '../../models/portfolio.interface';
+import { Bank, BillForm, Client, FinancialDocument, Portfolio } from '../../models/portfolio.interface';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class DocumentDialogComponent implements OnInit  {
   constructor(
     private invoiceServ:InvoiceService,
     private documentDialog:DialogRef<DocumentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:{id:number, navigate: boolean},
+    @Inject(MAT_DIALOG_DATA) public data:{portfolio:Portfolio, navigate: boolean},
     private router:Router
   ){}
   billForm:FormGroup = new FormGroup({
@@ -47,16 +47,36 @@ export class DocumentDialogComponent implements OnInit  {
   }
 
   addBill(){
-    // if(this.billForm.invalid){
-    //   this.billForm.markAllAsTouched()
-    //   return;
-    // }
-    // const {valorNominal, tipoTasa, fechaEmision, fechaVencimiento, cliente, periodo }:BillForm = this.billForm.value;
-    // this.invoiceServ.addBillToPortfolio(this.data.id,{valorNominal,tipoTasa,fechaEmision,fechaVencimiento,cliente,periodo})
-    // console.log(this.billForm)
-    // console.log(fechaVencimiento)
-    // this.documentDialog.close();  
-    // if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`);
+    this.billForm.markAllAsTouched()
+    if(this.billForm.invalid) return;
+    const {valorNominal, fechaEmision, fechaVencimiento, cliente }:BillForm = this.billForm.value;
+    const financialDocument:FinancialDocument = 
+    {
+      valor_nominal:valorNominal,
+      fecha_emision:fechaEmision, 
+      fecha_vencimiento: fechaVencimiento, 
+      id_cartera: this.data.portfolio.id, 
+      tipo: 'factura',
+      tipo_tasa: this.data.portfolio.tipo_tasa,
+      periodo: this.data.portfolio.periodo,
+      capitalizacion: this.data.portfolio.capitalizacion,
+      ruc_cliente:"",
+      estado:"pendiente"
+    };
+      
+    this.invoiceServ.addDocument(financialDocument).subscribe({
+      next:()=>{
+        console.log(this.billForm)
+        this.documentDialog.close();
+        if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.portfolio.id}`);
+      },
+      error:()=>{
+        console.log('error')
+      }
+    })
+    console.log(fechaVencimiento)
+     
+     
   }
   addPromissory(){
     // if(this.promissoryForm.invalid){

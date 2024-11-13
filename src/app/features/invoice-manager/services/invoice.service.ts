@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Bank, BillForm, Client, Portfolio,PortfolioForm,Rol,financialDocument } from '../models/portfolio.interface';
+import { Bank, BillForm, Client, FinancialDocument, Portfolio,PortfolioForm,Rol } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import * as moment from 'moment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -146,6 +146,27 @@ export class InvoiceService {
     const ruc = this.authServ.getUser()
     return this.http.get<Client[]>(`${this.BASE_URL}client/${ruc}`,{headers})
       .pipe(tap(resp=>this.clientAll.next(resp)))
+  }
+  getDocuments(idCartera:number){
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.get(`${this.BASE_URL}documents/${idCartera}`,{headers})
+
+  }
+  addDocument(document:FinancialDocument){
+    const  headers = new HttpHeaders({'Content-Type':'application/json'})
+    const ruc = this.authServ.getUser();
+    const fechaEmision = moment(document.fecha_emision).format('DD/MM/YYYY');
+    const fechaVencimiento = moment(document.fecha_vencimiento).format('DD/MM/YYYY');
+    const financialDocument = {
+      ...document, 
+      fecha_emision:fechaEmision, 
+      fecha_vencimiento:fechaVencimiento,  
+      ruc_cliente:ruc,
+      estado:'pendiente'
+    }
+
+    return this.http.post(`${this.BASE_URL}document`,financialDocument,{headers})
+      .pipe(tap(()=> this.getDocuments(document.id_cartera).subscribe()))
   }
   
 }
