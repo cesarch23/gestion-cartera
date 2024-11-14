@@ -38,6 +38,39 @@ export interface FinancialDocument {
     estado: string;
     
 }
+
+export interface DocumentResponse {
+ tipo: DocumentType,
+ tipo_tasa: TipoTasa,
+ capitalizacion: Capitalizacion,
+ fecha_vencimiento: Date,
+ estado: string,
+ plazo: number,
+ interes_descontado: number,
+ tcea: number,
+ valor_nominal: number,
+ id: number,
+ id_cartera: number,
+ periodo: Period,
+ fecha_emision: Date,
+ ruc_cliente: string,
+ monto_recibido: number,
+ tasa_descuento: number
+}
+export interface Document {
+    id_cartera:number;
+    tipo: DocumentType;
+    valor_nominal: number;
+    tipo_tasa: TipoTasa;
+    periodo: Period  // mensual, anual, quincenal, etc
+    capitalizacion: Capitalizacion;
+    fecha_emision:Date;
+    fecha_vencimiento:Date;
+    //fechaDescuento:Date; // es el mismo que la de la cartera
+    ruc_cliente:string;
+    estado: string;
+    
+}
 export interface Bank{
     id:number;
     nombre: string;
@@ -64,7 +97,6 @@ export interface Portfolio {
     periodo: Period;
     tcea:number;
     nombre_banco:string;
-
     id_banco:number;
     //documentos:financialDocument[]
   }

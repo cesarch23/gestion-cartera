@@ -6,7 +6,7 @@
     </a>
     
     <div class="bottom">
-      <h1 class="portfolio___header-title">Facturas/letras de la cartera xx</h1>
+      <h1 class="portfolio___header-title">Facturas/letras de la cartera {{ portfolio?.nombre ??  '...' }}</h1>
       <div class="portfolio__buttons">
         <button class="portfolio___button-tcea" mat-button mat-flat-button>
           <mat-icon fontIcon="calculate"></mat-icon>Calcular TCEA
@@ -19,25 +19,16 @@
   </div>
 
   <div class="portfolio__table">
-    <div class="portfolio__table-container" *ngIf=" portfolios.length >0 " >
-      <table  mat-table [dataSource]="documents" matSort>
+    <div class="portfolio__table-container" >
+      <table *ngIf="documentsStatus==='sucess'" mat-table [dataSource]="documents" matSort>
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > N°</th>
           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
-
-        <ng-container matColumnDef="editar">
-          <th mat-header-cell *matHeaderCellDef class="sticky"> Editar </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-button mat-flat-button>
-              <mat-icon fontIcon="edit"></mat-icon>
-            </button>
-          </td>
-        </ng-container>
         <ng-container matColumnDef="cliente">
-          <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Cliente </th>
-          <td mat-cell *matCellDef="let element"> {{ element.cliente.nombre + " "+ element.cliente.apellidos}} </td>
+          <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Cliente(ruc) </th>
+          <td mat-cell *matCellDef="let element"> {{ element.ruc_cliente}} </td>
         </ng-container>
 
         <ng-container matColumnDef="estado">
@@ -50,23 +41,23 @@
         </ng-container>
         <ng-container matColumnDef="moneda">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Moneda </th>
-          <td mat-cell *matCellDef="let element"> {{element.moneda}} </td>
+          <td mat-cell *matCellDef="let element"> {{ portfolio?.tipo_moneda ?? '...'}} </td>
         </ng-container>
         <ng-container matColumnDef="valorNominal">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Valor nominal </th>
-          <td mat-cell *matCellDef="let element"> {{element.valorNominal}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.valor_nominal}} </td>
         </ng-container>
         <ng-container matColumnDef="tasaDescuento">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Tasa de descuento </th>
-          <td mat-cell *matCellDef="let element"> {{element.tasaDescuento}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.tasa_descuento}} </td>
         </ng-container>
         <ng-container matColumnDef="montoRecibido">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header> Monto recibido </th>
-          <td mat-cell *matCellDef="let element"> {{element.montoRecibido }} </td>
+          <td mat-cell *matCellDef="let element"> {{element.monto_recibido }} </td>
         </ng-container>
         <ng-container matColumnDef="interesDescontado">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header> Interes descontado </th>
-          <td mat-cell *matCellDef="let element"> {{element.interesDescontado}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.interes_descontado}} </td>
         </ng-container>
         <ng-container matColumnDef="tcea">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header> TCEA </th>
@@ -74,27 +65,32 @@
         </ng-container>
         <ng-container matColumnDef="tipoTasa">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header> Tipo de tasa </th>
-          <td mat-cell *matCellDef="let element"> {{element.tipoTasa}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.tipo_tasa}} </td>
         </ng-container>
         <ng-container matColumnDef="fechaEmision">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Fecha de emisión </th>
-          <td mat-cell *matCellDef="let element"> {{element.fechaEmision | date:'d/M/yy':'-5' }} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_emision | date:'d/M/yy':'-5' }} </td>
         </ng-container>
         <ng-container matColumnDef="fechaDescuento">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Fecha de descuento </th>
-          <td mat-cell *matCellDef="let element"> {{element.fechaDescuento | date:'d/M/yy':'-5' }} </td>
+          <td mat-cell *matCellDef="let element"> {{ (portfolio?.fecha_descuento ?? '...' )| date:'d/M/yy':'-5' }} </td>
         </ng-container>
         <ng-container matColumnDef="fechaVencimiento">
           <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Fecha de vencimiento </th>
-          <td mat-cell *matCellDef="let element"> {{element.fechaVencimiento | date:'d/M/yy':'-5'}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_vencimiento | date:'d/M/yy':'-5'}} </td>
         </ng-container>
-        <ng-container matColumnDef="banco">
-          <th mat-header-cell *matHeaderCellDef class="sticky" mat-sort-header > Banco </th>
-          <td mat-cell *matCellDef="let element"> {{ element.bancoEnviado?.nombre }} </td>
-        </ng-container>
+ 
         <tr mat-header-row *matHeaderRowDef="detailsColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: detailsColumns;"></tr>
       </table>
+      <div  *ngIf="this.documentsStatus==='loading'" class="loader-container">
+        <div class="loader"></div> 
+      </div>  
+      <div  *ngIf="this.documentsStatus==='failed'" class="error-loading">
+        <p>Se produjo un error al cargar los datos. Por favor, intenta recargar la página.</p>
+      </div>
+       
+
     </div>
     <mat-paginator class="portfolio__table-paginator" #MatPaginator2  [pageSizeOptions]="[4, 10, 20]" showFirstLastButtons
       aria-label="Select page of clients ">

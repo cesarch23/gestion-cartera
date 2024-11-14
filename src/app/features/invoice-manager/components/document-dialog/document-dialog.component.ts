@@ -47,6 +47,7 @@ export class DocumentDialogComponent implements OnInit  {
   }
 
   addBill(){
+    console.log(this.data.portfolio)
     this.billForm.markAllAsTouched()
     if(this.billForm.invalid) return;
     const {valorNominal, fechaEmision, fechaVencimiento, cliente }:BillForm = this.billForm.value;
@@ -60,7 +61,7 @@ export class DocumentDialogComponent implements OnInit  {
       tipo_tasa: this.data.portfolio.tipo_tasa,
       periodo: this.data.portfolio.periodo,
       capitalizacion: this.data.portfolio.capitalizacion,
-      ruc_cliente:"",
+      ruc_cliente:cliente.ruc,
       estado:"pendiente"
     };
       
@@ -69,6 +70,7 @@ export class DocumentDialogComponent implements OnInit  {
         console.log(this.billForm)
         this.documentDialog.close();
         if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.portfolio.id}`);
+
       },
       error:()=>{
         console.log('error')

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Bank, BillForm, Client, FinancialDocument, Portfolio,PortfolioForm,Rol } from '../models/portfolio.interface';
+import { Bank, BillForm, Client, DocumentResponse, FinancialDocument, Portfolio,PortfolioForm,Rol } from '../models/portfolio.interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import * as moment from 'moment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -28,6 +28,9 @@ export class InvoiceService {
 
   private bankList = new BehaviorSubject<Bank[]>([]);
   bankList$ = this.bankList.asObservable();
+
+  private documents = new BehaviorSubject<DocumentResponse[]>([]);
+  documents$ = this.documents.asObservable();
   
   constructor(
     private http:HttpClient,
@@ -43,19 +46,6 @@ export class InvoiceService {
     const estado = 'pendiente';
     const ruc = this.authServ.getUser();
     const date = moment(fechaDescuento).format('DD/MM/YYYY');
-    /**
-     *   "nombre": "string",
-  "tipo_moneda": "string",
-  "fecha_descuento": "string",
-  "id_banco": 0,
-  "estado": "pendiente",
-  "tcea": 0,
-  "tipo_tasa": "string",
-  "periodo": "string",
-  "tasa": 0,
-  "capitalizacion": "diaria",
-  "ruc_user": "string"
-     */
     const headers = new HttpHeaders({'Content-Type':'application/json'})
     const portfolio = {
       nombre,
@@ -90,9 +80,9 @@ export class InvoiceService {
       rol:'persona'
     }
     return this.http.post(`${this.BASE_URL}client`,client, {headers})
-                    .pipe(tap(resp=>{
-                      this.getClients('persona').subscribe()
-                    })) 
+      .pipe(tap(resp=>{
+        this.getClients('persona').subscribe()
+      })) 
   }
   addBusiness(business:{ruc:string; direccion:string;nombreComercial:string;razonSocial:string}){
     const { ruc, direccion, nombreComercial: nombre_comercial, razonSocial: razon_social} = business
@@ -141,32 +131,35 @@ export class InvoiceService {
     return this.http.get<Portfolio[]>(`${this.BASE_URL}walletr/${ruc}`,{headers})
       .pipe( tap( resp => this.portfolios.next(resp) ))
   }
+  getPortfolioById(id:number){
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.get<Portfolio[]>(`${this.BASE_URL}wallet/${id}`,{headers})
+  }
   getAllClients(){
     const headers = new HttpHeaders ({'Content-Type':'application/json'})
     const ruc = this.authServ.getUser()
     return this.http.get<Client[]>(`${this.BASE_URL}client/${ruc}`,{headers})
       .pipe(tap(resp=>this.clientAll.next(resp)))
   }
-  getDocuments(idCartera:number){
+  getDocumentsById(idCartera:number){
     const headers = new HttpHeaders({'Content-Type':'application/json'})
-    return this.http.get(`${this.BASE_URL}documents/${idCartera}`,{headers})
-
+    return this.http.get<DocumentResponse[]>(`${this.BASE_URL}documents`,{headers})
+      .pipe(tap(resp=>this.documents.next(resp)))
   }
   addDocument(document:FinancialDocument){
     const  headers = new HttpHeaders({'Content-Type':'application/json'})
-    const ruc = this.authServ.getUser();
+    //const ruc = this.authServ.getUser();
     const fechaEmision = moment(document.fecha_emision).format('DD/MM/YYYY');
     const fechaVencimiento = moment(document.fecha_vencimiento).format('DD/MM/YYYY');
     const financialDocument = {
       ...document, 
       fecha_emision:fechaEmision, 
       fecha_vencimiento:fechaVencimiento,  
-      ruc_cliente:ruc,
       estado:'pendiente'
     }
-
+    console.log("dedes inv",financialDocument)
     return this.http.post(`${this.BASE_URL}document`,financialDocument,{headers})
-      .pipe(tap(()=> this.getDocuments(document.id_cartera).subscribe()))
+      .pipe(tap(()=> this.getDocumentsById(document.id_cartera).subscribe()))
   }
   
 }

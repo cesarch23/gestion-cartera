@@ -2,11 +2,12 @@ import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild }
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Portfolio, FinancialDocument } from '../../models/portfolio.interface';
+import { Portfolio, FinancialDocument, DocumentResponse } from '../../models/portfolio.interface';
 import { InvoiceService } from '../../services/invoice.service';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RequestStatus } from 'src/app/auth/models/model.interface';
 
 // }
 // const portfoDta: PortfolioDetails[] = [
@@ -179,13 +180,31 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChanges {
 
-  detailsColumns = ['id','editar','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido','interesDescontado'
-                    ,'tcea','tipoTasa','fechaEmision','fechaDescuento','fechaVencimiento','banco']
+  detailsColumns = ['id','cliente','estado','tipo','moneda','valorNominal','tasaDescuento','montoRecibido','interesDescontado'
+                    ,'tcea','tipoTasa','fechaEmision','fechaDescuento','fechaVencimiento']
+/**  
+ "id": 1,
+ "ruc_cliente": "12345678901",
+  "tipo": "factura",
+  "estado": "pendiente",
+  "valor_nominal": 2000,
+  "tasa_descuento": 0.6322
+  "monto_recibido": 735.6,
+  "interes_descontado": 1264.4,
+  "tcea": 128.79,
+  "tipo_tasa": "efectiva",
+  "fecha_emision": "2024-11-14T00:00:00",
+  "fecha_vencimiento": "2024-12-25T00:00:00",
 
+  "capitalizacion": "diaria",
+  "plazo": 74,
+  "id_cartera": 1,
+  "periodo": "mensual",
+  } */
   
-  portfolios:Portfolio[]=[];
-  documents = new MatTableDataSource<FinancialDocument>([]);
-  //documents:any=[];// debe ser de tipo financialDocument
+  portfolio:Portfolio | null = null;
+  documents = new MatTableDataSource<DocumentResponse>([]);
+  documentsStatus:RequestStatus='init';
   private portfolioId:number=0;
   
   constructor(
@@ -196,9 +215,6 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.portfolios){
-     // this.documents = this.invoiceServ.getDetailsById(this.portfolioId).documentos
-    }
   }
 
   @ViewChild('MatPaginator2') paginator?: MatPaginator
@@ -207,12 +223,24 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   ngOnInit(): void {
     this.portfolioId = parseInt(this.route.snapshot.paramMap.get('id') || "0");
     
-    this.invoiceServ.portfolios$.subscribe(resp=>{
-      this.portfolios=resp
-      // this.documents.data = this.invoiceServ.getDetailsById(this.portfolioId).documentos
+    this.invoiceServ.documents$.subscribe();
+    this.invoiceServ.documents$.subscribe(resp=> this.documents.data = resp)
+
+    this.documentsStatus='loading';
+    this.invoiceServ.getPortfolioById(this.portfolioId).subscribe({
+      next:(resp)=>{
+        this.portfolio = resp[0]
+        this.invoiceServ.getDocumentsById(this.portfolioId).subscribe({
+          next:(resp)=>{
+            this.documentsStatus='sucess'
+            this.documents.data = resp
+          },
+          error:()=> this.documentsStatus='failed'
+        })
+      },
+      error:()=> {console.log('error') }
+    })
   
-    })    
-         
   }
   
   ngAfterViewInit(): void {
@@ -221,11 +249,12 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   }
 
   openDocumentDlg(){
+    console.log(this.portfolio)
     this.dialog.open(DocumentDialogComponent,{
-      data:{id:this.portfolioId, navigate: false},
+      data:{portfolio:this.portfolio, navigate: false},
       maxWidth: 608
     })
-    console.log("id de detalles",this.portfolioId)
-  }
     
+  }
+
 }

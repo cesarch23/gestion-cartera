@@ -39,12 +39,12 @@ export class CustomerPageComponent implements AfterViewInit, OnInit {
     this.dataBusinessStatus = 'loading';
     this.dataCustomerStatus = 'loading'
     this.invService.getClients('persona').subscribe({
-      next:()=> this.dataBusinessStatus = 'sucess',
-      error:()=> this.dataBusinessStatus = 'failed'
+      next:()=> this.dataCustomerStatus = 'sucess',
+      error:()=> this.dataCustomerStatus = 'failed'
     })
     this.invService.getClients('empresa').subscribe({
-      next:()=>this.dataCustomerStatus = 'sucess',
-      error:()=>this.dataCustomerStatus = 'failed',
+      next:()=>this.dataBusinessStatus = 'sucess',
+      error:()=>this.dataBusinessStatus = 'failed',
     });
 
   }
