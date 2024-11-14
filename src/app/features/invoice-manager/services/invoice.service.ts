@@ -37,10 +37,7 @@ export class InvoiceService {
     private authServ:AuthService,
 
   ) { }
-  private refreshClientList(){
-     
-  }
-
+ 
   
   addPortfolio({nombre, moneda, fechaDescuento,banco,tipoTasa,periodo,tasa,capitalizacion}:PortfolioForm){
     const estado = 'pendiente';
@@ -143,12 +140,11 @@ export class InvoiceService {
   }
   getDocumentsById(idCartera:number){
     const headers = new HttpHeaders({'Content-Type':'application/json'})
-    return this.http.get<DocumentResponse[]>(`${this.BASE_URL}documents`,{headers})
+    return this.http.get<DocumentResponse[]>(`${this.BASE_URL}documents/${idCartera}`,{headers})
       .pipe(tap(resp=>this.documents.next(resp)))
   }
   addDocument(document:FinancialDocument){
     const  headers = new HttpHeaders({'Content-Type':'application/json'})
-    //const ruc = this.authServ.getUser();
     const fechaEmision = moment(document.fecha_emision).format('DD/MM/YYYY');
     const fechaVencimiento = moment(document.fecha_vencimiento).format('DD/MM/YYYY');
     const financialDocument = {
@@ -157,7 +153,6 @@ export class InvoiceService {
       fecha_vencimiento:fechaVencimiento,  
       estado:'pendiente'
     }
-    console.log("dedes inv",financialDocument)
     return this.http.post(`${this.BASE_URL}document`,financialDocument,{headers})
       .pipe(tap(()=> this.getDocumentsById(document.id_cartera).subscribe()))
   }
