@@ -81,20 +81,34 @@ export class DocumentDialogComponent implements OnInit  {
      
   }
   addPromissory(){
-    // if(this.promissoryForm.invalid){
-    //   this.promissoryForm.markAllAsTouched()
-    //   return;
-    // }
-    // const {
-    //   valorNominal, 
-    //   tipoTasa,
-    //   fechaEmision,
-    //   fechaVencimiento,
-    //   cliente,
-    //   periodo
-    // }: BillForm = this.promissoryForm.value;
-    // this.invoiceServ.addPromissoryToPortfolio(this.data.id, {valorNominal, tipoTasa,fechaEmision, fechaVencimiento, cliente, periodo})
-    // this.documentDialog.close();
-    // if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.id}`)
+    this.promissoryForm.markAllAsTouched()
+    if(this.promissoryForm.invalid) return;
+    const {valorNominal, fechaEmision, fechaVencimiento, cliente }:BillForm = this.promissoryForm.value;
+    const financialDocument:FinancialDocument = 
+    {
+      valor_nominal:valorNominal,
+      fecha_emision:fechaEmision, 
+      fecha_vencimiento: fechaVencimiento, 
+      id_cartera: this.data.portfolio.id, 
+      tipo: 'letra',
+      tipo_tasa: this.data.portfolio.tipo_tasa,
+      periodo: this.data.portfolio.periodo,
+      capitalizacion: this.data.portfolio.capitalizacion,
+      ruc_cliente:cliente.ruc,
+      estado:"pendiente"
+    };
+      
+    this.invoiceServ.addDocument(financialDocument).subscribe({
+      next:()=>{
+        console.log(this.promissoryForm)
+        this.documentDialog.close();
+        if(this.data.navigate) this.router.navigateByUrl(`/app/portfolio/${this.data.portfolio.id}`);
+
+      },
+      error:()=>{
+        console.log('error')
+      }
+    })
+     
   }
 }
