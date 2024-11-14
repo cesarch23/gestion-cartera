@@ -8,7 +8,7 @@
     <div class="bottom">
       <h1 class="portfolio___header-title">Facturas/letras de la cartera {{ portfolio?.nombre ??  '...' }}</h1>
       <div class="portfolio__buttons">
-        <button class="portfolio___button-tcea" mat-button mat-flat-button>
+        <button class="portfolio___button-tcea" mat-button mat-flat-button (click)="calculateTcea()">
           <mat-icon fontIcon="calculate"></mat-icon>Calcular TCEA
         </button>
         <button class="portfolio___button" mat-button mat-flat-button (click)="openDocumentDlg()">

@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentDialogComponent } from '../../components/document-dialog/document-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestStatus } from 'src/app/auth/models/model.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastComponent } from 'src/app/shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-portfolio-details',
@@ -28,7 +30,8 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   constructor(
     private invoiceServ:InvoiceService,
     private route:ActivatedRoute,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private toastRef: MatSnackBar,
   ){
 
   }
@@ -72,6 +75,31 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
       maxWidth: 608
     })
     
+  }
+  openToast(message:string,type:string){
+    this.toastRef.openFromComponent(ToastComponent,{
+      data:{ message, type },
+      duration:5000,
+      verticalPosition: 'top',
+      horizontalPosition:'right'
+     })
+  }
+
+  calculateTcea(){
+    if(this.documents.data.length === 0){
+      this.openToast('No hay documentos para calcular la TCEA', 'error');
+      return;
+    }
+    let productTceaValorNominal = 0;
+    let totalValorNominal = 0;
+    this.documents.data.forEach(element => {
+      productTceaValorNominal += element.valor_nominal * element.tcea;
+      totalValorNominal += element.valor_nominal
+    })
+   const tcea = productTceaValorNominal / totalValorNominal;
+   console.log(tcea);
+   const tceaFormatted = tcea.toFixed(2);
+   this.openToast(`TCEA: ${tceaFormatted}`, 'success');
   }
 
 }
