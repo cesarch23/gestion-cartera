@@ -25,7 +25,11 @@
                 <mat-label>Constraseña</mat-label>
                 <input formControlName="password" matInput type="password" placeholder="Ingrese su contraseña">
             </mat-form-field>
-            <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" >Registrarse</button>
+            <button class="form__submit" mat-button mat-flat-button type="submit" color="primary" [disabled]="requestStatus === 'loading'" >
+                <span *ngIf="requestStatus === 'loading'">Cargando...</span>
+                <span *ngIf="requestStatus === 'init'">Registrarse</span>
+                <span *ngIf="requestStatus === 'failed'">Ocurrio un error en nuestro servidor, intentelo más tarde</span>
+            </button>
             <div class="form__or">
                 <hr> <span> O </span> <hr>
             </div>

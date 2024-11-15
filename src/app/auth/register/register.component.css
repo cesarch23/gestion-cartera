@@ -41,6 +41,7 @@
 .form .form__submit{
     background-color: #3566E7;
     margin-bottom:20px;
+    color:white;
 }
 .form__or{
     width: 100%;

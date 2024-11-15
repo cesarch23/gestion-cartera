@@ -13,7 +13,7 @@ import { ToastComponent } from 'src/app/shared/components/toast/toast.component'
 })
 export class RegisterComponent {
 
-  requestStatus:RequestStatus = 'failed'
+  requestStatus:RequestStatus = 'init'
   constructor(
     private authService:AuthService,
     private router:Router,
@@ -33,7 +33,7 @@ export class RegisterComponent {
   register(){
     this.registerForm.markAllAsTouched();
     if(this.registerForm.invalid) return;
-    
+    this.requestStatus = 'loading';
     const { ruc,razonSocial, direccion, sector, password } = this.registerForm.value
     this.authService.registerCompany({ruc,razon_social:razonSocial, direccion, sector, password})
       .subscribe({
@@ -48,6 +48,10 @@ export class RegisterComponent {
             verticalPosition:'top',
             horizontalPosition:'right'
           })
+          this.requestStatus = 'failed';
+        },
+        complete:()=>{
+          this.requestStatus = 'init';
         }
       })
   }
