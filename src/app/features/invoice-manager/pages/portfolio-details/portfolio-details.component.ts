@@ -56,7 +56,10 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
             this.documentsStatus='sucess'
             this.documents.data = resp
           },
-          error:()=> this.documentsStatus='failed'
+          error:()=> {
+            this.documentsStatus='failed'
+            this.documents.data = []
+          }
         })
       },
       error:()=> {console.log('error') }
@@ -87,9 +90,11 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
 
   calculateTcea(){
     if(this.documents.data.length === 0){
+      console.log(this.documents.data);
       this.openToast('No hay documentos para calcular la TCEA', 'error');
       return;
     }
+    
     let productTceaValorNominal = 0;
     let totalValorNominal = 0;
     this.documents.data.forEach(element => {
