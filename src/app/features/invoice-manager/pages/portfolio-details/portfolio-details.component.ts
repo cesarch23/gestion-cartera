@@ -90,7 +90,6 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
 
   calculateTcea(){
     if(this.documents.data.length === 0){
-      console.log(this.documents.data);
       this.openToast('No hay documentos para calcular la TCEA', 'error');
       return;
     }
@@ -102,7 +101,6 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
       totalValorNominal += element.valor_nominal
     })
    const tcea = productTceaValorNominal / totalValorNominal;
-   console.log(tcea);
    const tceaFormatted = tcea.toFixed(2);
    this.openToast(`TCEA: ${tceaFormatted}`, 'success');
   }
