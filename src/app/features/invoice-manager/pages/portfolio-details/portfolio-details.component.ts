@@ -111,7 +111,8 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   updateState(documentId:number){
     this.invoiceServ.updateDocumenteState(documentId,this.portfolioId).subscribe({
       next:()=> this.updateRequesStatus = 'loading',
-      error:()=> this.updateRequesStatus = 'init'
+      error:()=> this.updateRequesStatus = 'init',
+      complete:()=> this.updateRequesStatus = 'init'
     })
   }
 }
