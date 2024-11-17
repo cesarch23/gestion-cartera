@@ -25,6 +25,7 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
   portfolio:Portfolio | null = null;
   documents = new MatTableDataSource<DocumentResponse>([]);
   documentsStatus:RequestStatus='init';
+  updateRequesStatus:RequestStatus='init';
   private portfolioId:number=0;
   
   constructor(
@@ -45,7 +46,10 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
     this.portfolioId = parseInt(this.route.snapshot.paramMap.get('id') || "0");
     
     this.invoiceServ.documents$.subscribe();
-    this.invoiceServ.documents$.subscribe(resp=> this.documents.data = resp)
+    this.invoiceServ.documents$.subscribe(resp=> 
+      {this.documents.data = resp
+      console.log(resp)
+    })
 
     this.documentsStatus='loading';
     this.invoiceServ.getPortfolioById(this.portfolioId).subscribe({
@@ -104,5 +108,10 @@ export class PortfolioDetailsComponent implements AfterViewInit, OnInit, OnChang
    const tceaFormatted = tcea.toFixed(2);
    this.openToast(`TCEA: ${tceaFormatted}`, 'success');
   }
-
+  updateState(documentId:number){
+    this.invoiceServ.updateDocumenteState(documentId,this.portfolioId).subscribe({
+      next:()=> this.updateRequesStatus = 'loading',
+      error:()=> this.updateRequesStatus = 'init'
+    })
+  }
 }

@@ -156,5 +156,10 @@ export class InvoiceService {
     return this.http.post(`${this.BASE_URL}document`,financialDocument,{headers})
       .pipe(tap(()=> this.getDocumentsById(document.id_cartera).subscribe()))
   }
+  updateDocumenteState(DocumentId:number, idCartera:number){
+    const headers = new HttpHeaders({'Content-Type':'application/json'})
+    return this.http.put(`${this.BASE_URL}documents/${DocumentId}/pagado`,{},{headers})
+      .pipe(tap(()=> this.getDocumentsById(idCartera).subscribe()))
+  }
   
 }
